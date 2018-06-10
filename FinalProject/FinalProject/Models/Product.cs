@@ -14,8 +14,8 @@ namespace FinalProject
         public string Description { get; set; }
         public enum Type1 {Physical, Digital};
         public Type1 Type { get; set; }
-        public enum ShippingDeliberyType1 {Express, Normal, InStore, Free, None};
-        public ShippingDeliberyType1 ShippingDeliberyType { get; set; }
+        public enum ShippingDeliveryType1 {Express, Normal, InStore, Free, None};
+        public ShippingDeliveryType1 ShippingDeliberyType { get; set; }
         public Category Category { get; set; }
     }
 }
