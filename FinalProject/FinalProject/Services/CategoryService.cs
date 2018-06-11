@@ -60,7 +60,7 @@ namespace FinalProject.Services
             return DBCategory.Categories;
         }
 
-        public bool Updata(string key, Category updatedObject)
+        public bool Update(string key, Category updatedObject)
         {
             int indice = getIndexByKey(key);
 
