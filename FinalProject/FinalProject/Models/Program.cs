@@ -22,9 +22,9 @@ namespace FinalProject
     {
         static void Main(string[] args)
         {
-            CRUDCarts();
             CRUDUsers();
             testProduct();
+            CRUDCarts();
             Console.ReadKey();
         }
 
@@ -53,6 +53,11 @@ namespace FinalProject
             show<User>(manager.Read());
         }
 
+        public static void CRUDCarts()
+        {
+
+        }
+
         private static void show<T>(List<T> list)
         {
             Console.WriteLine("-----------Printing list-------------");
@@ -72,9 +77,9 @@ namespace FinalProject
             Category categoria2 = new Category() { Name = "categoria2", Description = "descripcion de la segunda categoria" };
             Category categoria3 = new Category() { Name = "categoria3", Description = "descripcion de la tercera categoria" };
 
-            Product product1 = new Product() { Code = "1", Name = "Producto numero1", Price = 10.99, Category = categoria1, Description = "Descripcion del producto1", Type = Type1.Digital, ShippingDeliberyType = ShippingDeliveryType1.Express };
-            Product product2 = new Product() { Code = "2", Name = "Producto numero2", Price = 20.50, Category = categoria2, Description = "Descripcion del producto2", Type = Type1.Physical, ShippingDeliberyType = ShippingDeliveryType1.Free };
-            Product product3 = new Product() { Code = "3", Name = "Producto numero3", Price = 30.50, Category = categoria2, Description = "Descripcion del producto2", Type = Type1.Physical, ShippingDeliberyType = ShippingDeliveryType1.Free };
+            Product product1 = new Product() { Code = "1", Name = "Producto numero1", Price = 10.99, Category = categoria1, Description = "Descripcion del producto1", Type = Type1.Digital, ShippingDeliberyType = ShippingDeliveryType.Express };
+            Product product2 = new Product() { Code = "2", Name = "Producto numero2", Price = 20.50, Category = categoria2, Description = "Descripcion del producto2", Type = Type1.Physical, ShippingDeliberyType = ShippingDeliveryType.Free };
+            Product product3 = new Product() { Code = "3", Name = "Producto numero3", Price = 30.50, Category = categoria2, Description = "Descripcion del producto2", Type = Type1.Physical, ShippingDeliberyType = ShippingDeliveryType.Free };
 
             cateServ.Create(categoria1);
             cateServ.Create(categoria2);

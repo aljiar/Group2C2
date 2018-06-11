@@ -22,7 +22,8 @@ namespace FinalProject
 
         public bool Create(Cart newCart)
         {
-            if (!checkIfExists(newCart.Username))
+            UserManager manager = new UserManager();
+            if (!checkIfExists(newCart.Username) && manager.checkIfExists(newCart.Username))
             {
                 myDB.Carts.Add(newCart);
                 Console.WriteLine("Cart was created successfully");
