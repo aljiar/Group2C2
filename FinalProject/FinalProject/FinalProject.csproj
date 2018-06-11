@@ -47,7 +47,6 @@
     <Compile Include="Managers\StoreManager.cs" />
     <Compile Include="Managers\CartManager.cs" />
     <Compile Include="Managers\ProductCartManager.cs" />
-    <Compile Include="Managers\ProductManager.cs" />
     <Compile Include="Managers\UserManager.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Services\IManager.cs" />
