@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FinalProject.Services
+{
+    interface ICRUD<T>
+    {
+        bool Create(T objeto);
+        List<T> Read();
+        bool Updata(String key, T updatedObject);
+        bool Delete(String key);
+    }
+}
