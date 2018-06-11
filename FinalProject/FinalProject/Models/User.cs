@@ -13,5 +13,23 @@ namespace FinalProject
         public string Name { get; set; }
         public string LastName { get; set; }
         public List<ShippingAddress> ShippingAddressesList { get; set; }
+
+        public User(string username, string password, string name, string lastname, List<ShippingAddress> shippingAddressesList)
+        {
+            Username = username;
+            Password = password;
+            Name = name;
+            LastName = lastname;
+            foreach (ShippingAddress shippingAddress in shippingAddressesList)
+            {
+                ShippingAddressesList.Add(shippingAddress);
+            }
+        }
+
+        public override string ToString()
+        {
+            return "Username: " + Username + ", password:" + Password + ", name: " + Name + ", lastname: " + LastName;
+        }
     }
 }
+
