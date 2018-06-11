@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinalProject
 {
-    class ProductCart : IEquatable<ProductCart>
+    class ProductCart
     {
         public string ProductCode { get; set; }
         public ShippingDeliveryType SelectedDelivery { get; set; }
@@ -43,13 +43,5 @@ namespace FinalProject
             stringProductCart += ", quantity: " + Quantity;
             return stringProductCart;
         }
-<<<<<<< HEAD
-=======
-
-        public bool Equals(ProductCart other)
-        {
-            return (this.ProductCode == other.ProductCode);
-        }
->>>>>>> 3d7e367d886e7c354fdbade8c273d59ff4877931
     }
 }
