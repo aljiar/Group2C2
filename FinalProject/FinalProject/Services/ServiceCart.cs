@@ -10,9 +10,11 @@ namespace FinalProject.Services
         {
             if (dbCart.Carts.Exists(cart => { return cart.Username == objeto.Username; }))
             {
+                Console.WriteLine("El usuario ya posee un carrito");
                 return false;
             }
             dbCart.Carts.Add(objeto);
+            Console.WriteLine("Se creo el carrito correctamente");
             return true;
         }
 
@@ -21,9 +23,11 @@ namespace FinalProject.Services
             int index;
             if ((index = dbCart.Carts.FindIndex(cart => { return cart.Username == key; })) < 0)
             {
+                Console.WriteLine("No se puede eliminar el carrito por que no existe");
                 return false;
             }
             dbCart.Carts.RemoveAt(index);
+            Console.WriteLine("Se elimino el carrito correctamente");
             return true;
         }
 
@@ -36,14 +40,17 @@ namespace FinalProject.Services
         {
             if (key != updatedObject.Username)
             {
+                Console.WriteLine("No se puede actualizar el carrito");
                 return false;
             }
             int index;
             if ((index = dbCart.Carts.FindIndex(cart => { return cart.Username == key; })) < 0)
             {
+                Console.WriteLine("No se puede actualizar el carrito");
                 return false;
             }
             dbCart.Carts[index] = updatedObject;
+            Console.WriteLine("Se actualizo el carrito correctamente");
             return true;
         }
     }
