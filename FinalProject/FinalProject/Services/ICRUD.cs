@@ -10,7 +10,7 @@ namespace FinalProject.Services
     {
         bool Create(T objeto);
         List<T> Read();
-        bool Updata(String key, T updatedObject);
+        bool Update(String key, T updatedObject);
         bool Delete(String key);
     }
 }
