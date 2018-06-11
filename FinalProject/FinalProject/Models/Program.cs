@@ -42,7 +42,7 @@ namespace FinalProject
             cateServ.Create(categoria1);
             cateServ.Create(categoria2);
             cateServ.Create(categoria1);
-            cateServ.Updata("categoria2",categoria3);
+            cateServ.Update("categoria2",categoria3);
 
             Console.WriteLine("---------------CATEGORIES IN THE DATA BASE------------\n");
 
@@ -55,7 +55,7 @@ namespace FinalProject
             prodServ.Create(product2);
             prodServ.Create(product1);
             prodServ.Delete(product2.Code);
-            prodServ.Updata("1", product3);
+            prodServ.Update("1", product3);
 
             Console.WriteLine("---------------PRODUCTS IN THE DATA BASE------------\n");
 

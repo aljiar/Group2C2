@@ -62,7 +62,7 @@ namespace FinalProject.Services
             return DBProduct.Products;
         }
 
-        public bool Updata(string key, Product updatedObject)
+        public bool Update(string key, Product updatedObject)
         {
             int indice = getIndexByKey(key);
 
