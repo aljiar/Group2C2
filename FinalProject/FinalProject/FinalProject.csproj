@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="DB.cs" />
     <Compile Include="Managers\CartManager.cs" />
+    <Compile Include="Managers\UserManager.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Services\IManager.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Category.cs" />
@@ -55,8 +57,10 @@
     <Compile Include="Models\ShippingAddress.cs" />
     <Compile Include="Models\Store.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\ICRUD.cs" />
     <Compile Include="Services\ServiceCart.cs" />
+    <Compile Include="Services\ProductService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
