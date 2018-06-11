@@ -14,5 +14,20 @@ namespace FinalProject
         public int Phone { get; set; }
         public string City { get; set; }
         public string Zone { get; set; }
+
+        public ShippingAddress(string identifier, string line1, string line2, int phone, string city, string zone)
+        {
+            Identifier = identifier;
+            Line1 = line1;
+            Line2 = line2;
+            Phone = phone;
+            City = city;
+            Zone = zone;
+        }
+
+        public override string ToString()
+        {
+            return "Identifier: " + Identifier + ", line1: " + Line1 + ", line2: " + Line2 + ", phone: " + Phone + ", city: " + City + ", zone: " + Zone;
+        }
     }
 }
