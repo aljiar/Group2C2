@@ -54,7 +54,9 @@
     <Compile Include="Models\ShippingAddress.cs" />
     <Compile Include="Models\Store.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\ICRUD.cs" />
+    <Compile Include="Services\ProductService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
