@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinalProject.Services
+namespace FinalProject
 
 {
     class ProductService : ICRUD<Product>, IManager

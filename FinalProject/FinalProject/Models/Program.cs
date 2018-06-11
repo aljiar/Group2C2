@@ -11,40 +11,35 @@ namespace FinalProject
     {
         static void Main(string[] args)
         {
-
+            CRUDUsers();
+            testProduct();
             CRUDProductCarts();
+            CRUDCarts();
             Console.ReadKey();
         }
         public static void CRUDProductCarts()
         {
-            Cart cart = new Cart();
-            cart.ListProductCart = new List<ProductCart>();
+            Cart cart = new Cart(new List<ProductCart>(), "maria");
             ProductCartManager manager = new ProductCartManager(cart);
             Product prod1 = new Product() { Code = "001", Name = "TV", Price = 10, Description = "Flat screen" };
             Product prod2 = new Product() { Code = "002", Name = "Radio", Price = 10, Description = "New radio" };
             Product prod3 = new Product() { Code = "003", Name = "Table", Price = 5, Description = "Table" };
-            ProductCart productCart1 = new ProductCart(prod1.Code, ShippingDeliveryType.Normal, null, 12);
-            ProductCart productCart2 = new ProductCart(prod2.Code, ShippingDeliveryType.Normal, null, 12);
-            ProductCart productCart3 = new ProductCart(prod3.Code, ShippingDeliveryType.Express, null, 1);
+            ProductCart productCart1 = new ProductCart("1", ShippingDeliveryType.Normal, null, 12);
+            ProductCart productCart2 = new ProductCart("2", ShippingDeliveryType.Normal, null, 12);
+            ProductCart productCart3 = new ProductCart("3", ShippingDeliveryType.Express, null, 1);
             //create
             manager.Create(productCart1); //success
-            manager.Create(productCart2); //success
-            manager.Create(productCart1); //fail
+            manager.Create(productCart2); //fail
+            manager.Create(productCart3); //success
             //delete
-            manager.Delete("001"); //success
-            manager.Delete("003"); //fail
+            manager.Delete("1"); //fail
             //update
-            productCart2.Quantity = 23;
-            manager.Update("002", productCart2); //success
-            manager.Update("001", productCart2); //fail
-            manager.Update("002", productCart3); //fail
+            productCart3.Quantity = 23;
+            manager.Update("3", productCart3); //success
+            manager.Update("1", productCart2); //fail
+            manager.Update("3", productCart1); //fail
             //read
             show<ProductCart>(manager.Read());
-
-            CRUDUsers();
-            testProduct();
-            CRUDCarts();
-            Console.ReadKey();
         }
 
         public static void CRUDUsers()
@@ -75,7 +70,25 @@ namespace FinalProject
 
         public static void CRUDCarts()
         {
-
+            CartManager manager = new CartManager();
+            Cart cart1 = new Cart(new List<ProductCart>(), "maria");
+            Cart cart2 = new Cart(new List<ProductCart>(), "max");
+            Cart cart3 = new Cart(new List<ProductCart>(), "cam");
+            Product prod1 = new Product() { Code = "001", Name = "TV", Price = 10, Description = "Flat screen" };
+            ProductCart productCart1 = new ProductCart(prod1.Code, ShippingDeliveryType.Normal, null, 12);
+            //create
+            manager.Create(cart1); //fail
+            manager.Create(cart3); //success
+            manager.Create(cart2); //success
+            //delete
+            manager.Delete("max"); //success
+            manager.Delete("hola"); //fail
+            //update
+            cart3.ListProductCart.Add(productCart1);
+            manager.Update("cam", cart3);
+            manager.Update("cam", cart1);
+            //read
+            show<Cart>(manager.Read());
         }
 
         private static void show<T>(List<T> list)

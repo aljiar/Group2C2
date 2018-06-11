@@ -13,6 +13,7 @@ namespace FinalProject
         public Cart(List<ProductCart> list, string username)
         {
             Username = username;
+            ListProductCart = new List<ProductCart>();
             foreach (ProductCart prodCart in list)
             {
                 ListProductCart.Add(prodCart);
