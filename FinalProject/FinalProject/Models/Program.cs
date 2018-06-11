@@ -27,24 +27,24 @@ namespace FinalProject
 
         public static void CRUDUsers()
         {
-            ShippingAddressManager manager = new ShippingAddressManager();
-            ShippingAddress shippingAddress1 = new ShippingAddress("01", "line1", "line2", 123, "La Paz", "Zona 1");
-            ShippingAddress shippingAddress2 = new ShippingAddress("02", "line1", "line2", 123, "La Paz", "Zona 1");
-            ShippingAddress shippingAddress3 = new ShippingAddress("01", "line1", "line2", 123, "La Paz", "Zona 1");
+            StoreManager manager = new StoreManager();
+            Store store1 = new Store("Tienda1", "line1", "line2", 123);
+            Store store2 = new Store("Tienda2", "line1", "line2", 123);
+            Store store3 = new Store("Tienda1", "line1", "line2", 123);
             //create
-            manager.Create(shippingAddress1); //success
-            manager.Create(shippingAddress2); //success
-            manager.Create(shippingAddress1); //fail
+            manager.Create(store1); //success
+            manager.Create(store2); //success
+            manager.Create(store1); //fail
             //delete
-            manager.Delete("01"); //success
-            manager.Delete("03"); //fail
+            manager.Delete("Tienda1"); //success
+            manager.Delete("Tienda3"); //fail
             //update
-            shippingAddress2.Line1 = "newLine";
-            manager.Update("02", shippingAddress2); //success
-            manager.Update("02", shippingAddress3); //fail
-            manager.Update("05", shippingAddress2); //fail
+            store2.Line1 = "newLine";
+            manager.Update("Tienda2", store2); //success
+            manager.Update("Tienda2", store3); //fail
+            manager.Update("Tienda5", store1); //fail
             //read
-            show<ShippingAddress>(manager.Read());
+            show<Store>(manager.Read());
         }
 
         private static void show<T>(List<T> list)

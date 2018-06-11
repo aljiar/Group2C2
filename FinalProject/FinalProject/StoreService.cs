@@ -8,7 +8,7 @@ namespace FinalProject
 {
     class StoreService
     {
-        private int a;
+        /*private int a;
         private List<Store> listStore;
 
         public void Show()
@@ -139,6 +139,6 @@ namespace FinalProject
 
 
             } while (a != 6);
-        }
+        }*/
     }
 }
