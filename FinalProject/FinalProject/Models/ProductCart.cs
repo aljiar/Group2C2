@@ -12,5 +12,7 @@ namespace FinalProject
         public string SelectedDelivery { get; set; }
         public Store Store { get; set; }
         public int Quantity { get; set; }
+
+
     }
 }
