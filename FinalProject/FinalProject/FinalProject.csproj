@@ -44,10 +44,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DB.cs" />
+<<<<<<< HEAD
     <Compile Include="Managers\CartManager.cs" />
     <Compile Include="Managers\ProductCartManager.cs" />
     <Compile Include="Managers\ProductManager.cs" />
     <Compile Include="Services\IManager.cs" />
+=======
+    <Compile Include="Managers\ProductCartManager.cs" />
+>>>>>>> 3d7e367d886e7c354fdbade8c273d59ff4877931
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Product.cs" />
