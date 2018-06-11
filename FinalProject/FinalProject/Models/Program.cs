@@ -68,24 +68,24 @@ namespace FinalProject
             //read
             show<ShippingAddress>(manager.Read());
           
-            StoreManager manager = new StoreManager();
+            StoreManager manager1 = new StoreManager();
             Store store1 = new Store("Tienda1", "line1", "line2", 123);
             Store store2 = new Store("Tienda2", "line1", "line2", 123);
             Store store3 = new Store("Tienda1", "line1", "line2", 123);
             //create
-            manager.Create(store1); //success
-            manager.Create(store2); //success
-            manager.Create(store1); //fail
+            manager1.Create(store1); //success
+            manager1.Create(store2); //success
+            manager1.Create(store1); //fail
             //delete
-            manager.Delete("Tienda1"); //success
-            manager.Delete("Tienda3"); //fail
+            manager1.Delete("Tienda1"); //success
+            manager1.Delete("Tienda3"); //fail
             //update
             store2.Line1 = "newLine";
-            manager.Update("Tienda2", store2); //success
-            manager.Update("Tienda2", store3); //fail
-            manager.Update("Tienda5", store1); //fail
+            manager1.Update("Tienda2", store2); //success
+            manager1.Update("Tienda2", store3); //fail
+            manager1.Update("Tienda5", store1); //fail
             //read
-            show<Store>(manager.Read());
+            show<Store>(manager1.Read());
             List<ShippingAddress> list = new List<ShippingAddress>();
             UserManager manager2 = new UserManager();
             User user1 = new User("max", "pass", "Max", "Mendez", list);
