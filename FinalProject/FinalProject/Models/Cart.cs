@@ -10,5 +10,9 @@ namespace FinalProject
     {
         public List<ProductCart> ListProductCart { get; set; }
         public String Username { get; set; }
+        public Cart()
+        {
+            
+        }
     }
 }
