@@ -13,7 +13,6 @@ namespace FinalProject
         static void Main(string[] args)
         {
             CRUDUsers();
-
             CRUDProductCarts();
             Console.ReadKey();
         }
@@ -50,6 +49,25 @@ namespace FinalProject
 
         public static void CRUDUsers()
         {
+            ShippingAddressManager manager = new ShippingAddressManager();
+            ShippingAddress shippingAddress1 = new ShippingAddress("01", "line1", "line2", 123, "La Paz", "Zona 1");
+            ShippingAddress shippingAddress2 = new ShippingAddress("02", "line1", "line2", 123, "La Paz", "Zona 1");
+            ShippingAddress shippingAddress3 = new ShippingAddress("01", "line1", "line2", 123, "La Paz", "Zona 1");
+            //create
+            manager.Create(shippingAddress1); //success
+            manager.Create(shippingAddress2); //success
+            manager.Create(shippingAddress1); //fail
+            //delete
+            manager.Delete("01"); //success
+            manager.Delete("03"); //fail
+            //update
+            shippingAddress2.Line1 = "newLine";
+            manager.Update("02", shippingAddress2); //success
+            manager.Update("02", shippingAddress3); //fail
+            manager.Update("05", shippingAddress2); //fail
+            //read
+            show<ShippingAddress>(manager.Read());
+          
             StoreManager manager = new StoreManager();
             Store store1 = new Store("Tienda1", "line1", "line2", 123);
             Store store2 = new Store("Tienda2", "line1", "line2", 123);
@@ -99,6 +117,7 @@ namespace FinalProject
                 Console.WriteLine(obj);
             }
             Console.WriteLine("------------End of list--------------");
+
         }
 
         static void testProduct()

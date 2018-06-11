@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DB.cs" />
+    <Compile Include="Managers\ShippingAddressManager.cs" />
     <Compile Include="Managers\StoreManager.cs" />
     <Compile Include="Managers\CartManager.cs" />
     <Compile Include="Managers\ProductCartManager.cs" />
