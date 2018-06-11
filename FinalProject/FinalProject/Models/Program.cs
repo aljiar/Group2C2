@@ -21,11 +21,6 @@ namespace FinalProject
     {
         static void Main(string[] args)
         {
-            DB mydb = DB._instance;
-            Console.WriteLine(mydb._database.Count);
-            StoreService showstoresrv = new StoreService();
-            showstoresrv.Show();
-            
         }
     }
 }
