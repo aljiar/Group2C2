@@ -32,7 +32,7 @@ namespace FinalProject.Services
             return dbCart.Carts;
         }
 
-        public bool Updata(string key, Cart updatedObject)
+        public bool Update(string key, Cart updatedObject)
         {
             if (key != updatedObject.Username)
             {

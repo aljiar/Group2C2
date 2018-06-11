@@ -21,6 +21,23 @@ namespace FinalProject
     {
         static void Main(string[] args)
         {
+            CRUDCarts();
+            Console.ReadKey();
+        }
+
+        public static void CRUDCarts()
+        {
+
+        }
+
+        private static void show<T>(List<T> list)
+        {
+            Console.WriteLine("-----------Printing list-------------");
+            foreach (T obj in list)
+            {
+                Console.WriteLine(obj);
+            }
+            Console.WriteLine("------------End of list--------------");
         }
     }
 }
