@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinalProject
+namespace FinalProject.Services
+
 {
     class ProductService : ICRUD<Product>, IManager
     {
@@ -13,7 +14,7 @@ namespace FinalProject
 
         public bool checkIfExists(string key)
         {
-            return DBProduct.Products.Exists(x => x.Code == key);
+            return DBProduct.Products.Exists(x => x.Code == key);    
         }
 
         public int getIndexByKey(string key)
@@ -76,3 +77,4 @@ namespace FinalProject
         }
     }
 }
+
