@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace FinalProject
 {
+    public enum ShippingDeliveryType {
+        Express,
+        Normal,
+        InStore,
+        Free,
+        None
+    };
     class Product
     {
         public string Code { get; set; }
@@ -14,8 +21,7 @@ namespace FinalProject
         public string Description { get; set; }
         public enum Type1 {Physical, Digital};
         public Type1 Type { get; set; }
-        public enum ShippingDeliveryType1 {Express, Normal, InStore, Free, None};
-        public ShippingDeliveryType1 ShippingDeliberyType { get; set; }
+        public ShippingDeliveryType ShippingDeliveryType1 { get; set; }
         public Category Category { get; set; }
     }
 }
