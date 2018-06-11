@@ -27,7 +27,7 @@ namespace FinalProject
 
         public bool Create(ProductCart prodCart)
         {
-            ProductManager prodManager = new ProductManager();
+            ProductService prodManager = new ProductService();
             if (!checkIfExists(prodCart.ProductCode) && prodManager.checkIfExists(prodCart.ProductCode))
             {
                 cart.ListProductCart.Add(prodCart);
