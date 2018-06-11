@@ -49,6 +49,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductCart.cs" />
     <Compile Include="Models\Program.cs" />
+    <Compile Include="StoreService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\ShippingAddress.cs" />
     <Compile Include="Models\Store.cs" />

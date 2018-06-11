@@ -23,11 +23,9 @@ namespace FinalProject
         {
             DB mydb = DB._instance;
             Console.WriteLine(mydb._database.Count);
-
-            //example of how to add products
-            /*Product pr = new Product();
-            mydb.addValue(pr, Indexes.Product);
-            Console.ReadKey();*/
+            StoreService showstoresrv = new StoreService();
+            showstoresrv.Show();
+            
         }
     }
 }
