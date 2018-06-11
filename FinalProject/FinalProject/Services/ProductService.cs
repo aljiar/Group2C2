@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FinalProject.Services
+
 {
     class ProductService : ICRUD<Product>, IManager
     {
@@ -76,3 +77,4 @@ namespace FinalProject.Services
         }
     }
 }
+
