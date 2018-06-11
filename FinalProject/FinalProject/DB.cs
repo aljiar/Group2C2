@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,24 +8,16 @@ namespace FinalProject
 {
     class DB
     {
-        private List<List<object>> database;
-        public List<List<object>> _database
-        {
-            get
-            {
-                return database;
-            }
-            private set
-            {
-                if (value != null)
-                {
-                    database = value;
-                }
-            }
-        }
+        public List<Cart> Carts { get; set; }
+        public List<Category> Categories { get; set; }
+        public List<Product> Products { get; set; }
+        public List<ProductCart> ProductCarts { get; set; }
+        public List<ShippingAddress> ShippingAddresses { get; set; }
+        public List<Store> Stores { get; set; }
+        public List<User> Users { get; set; }
 
         private static DB instance;
-        public static DB _instance
+        public static DB Instance
         {
             get
             {
@@ -46,23 +38,14 @@ namespace FinalProject
 
         private DB()
         {
-            int size = Enum.GetNames(typeof(Indexes)).Length;
-            database = new List<List<object>>();
-            initializeLists(size);
-        }
-
-        private void initializeLists(int number)
-        {
-            for (int i = 0; i < number; i++)
-            {
-                database.Add(new List<object>());
-            }
-        }
-
-        public void addValue(Object obj, Indexes index)
-        {
-            int dbIndex = (int)index;
-            database[dbIndex].Add(obj);
+            Carts = new List<Cart>();
+            Categories = new List<Category>();
+            Products = new List<Product>();
+            ProductCarts = new List<ProductCart>();
+            ShippingAddresses = new List<ShippingAddress>();
+            Stores = new List<Store>();
+            Users = new List<User>();
         }
     }
 }
+
