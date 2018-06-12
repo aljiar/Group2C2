@@ -29,10 +29,6 @@ namespace FinalProject
             ProductCart productCart2 = new ProductCart("2", ShippingDeliveryType.Normal, null, 12);
             ProductCart productCart3 = new ProductCart("3", ShippingDeliveryType.Express, null, 1);
 
-            ProductCart productCart1 = new ProductCart(prod1.Code, ShippingDeliveryType1.Normal, null, 12);
-            ProductCart productCart2 = new ProductCart(prod2.Code, ShippingDeliveryType1.Normal, null, 12);
-            ProductCart productCart3 = new ProductCart(prod3.Code, ShippingDeliveryType1.Express, null, 1);
-
             //create
             manager.Create(productCart1); //success
             manager.Create(productCart2); //fail
