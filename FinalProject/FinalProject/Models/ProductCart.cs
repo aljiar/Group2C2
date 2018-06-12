@@ -9,11 +9,11 @@ namespace FinalProject
     class ProductCart
     {
         public string ProductCode { get; set; }
-        public ShippingDeliveryType1 SelectedDelivery { get; set; }
+        public ShippingDeliveryType SelectedDelivery { get; set; }
         private Store Store { get; set; }
         public int Quantity { get; set; }
 
-        public ProductCart(string productCode, ShippingDeliveryType1 selectedDelivery, Store store, int quantity)
+        public ProductCart(string productCode, ShippingDeliveryType selectedDelivery, Store store, int quantity)
         {
             ProductCode = productCode;
             SelectedDelivery = selectedDelivery;
@@ -21,9 +21,9 @@ namespace FinalProject
             Quantity = quantity;
         }
 
-        private void assignStore(ShippingDeliveryType1 selectedDelivery, Store store)
+        private void assignStore(ShippingDeliveryType selectedDelivery, Store store)
         {
-            if (selectedDelivery == ShippingDeliveryType1.InStore)
+            if (selectedDelivery == ShippingDeliveryType.InStore)
             {
                 Store = store;
             }
