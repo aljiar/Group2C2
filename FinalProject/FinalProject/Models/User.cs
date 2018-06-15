@@ -20,10 +20,7 @@ namespace FinalProject
             Password = password;
             Name = name;
             LastName = lastname;
-            foreach (ShippingAddress shippingAddress in shippingAddressesList)
-            {
-                ShippingAddressesList.Add(shippingAddress);
-            }
+            ShippingAddressesList = shippingAddressesList;
         }
 
         public override string ToString()

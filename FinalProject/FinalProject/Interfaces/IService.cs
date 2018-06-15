@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinalProject
 {
-    interface IManager
+    interface IService
     {
         bool checkIfExists(string key);
         int getIndexByKey(string key);

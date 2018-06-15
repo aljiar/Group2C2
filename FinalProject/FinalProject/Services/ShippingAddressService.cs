@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinalProject
 {
-    class ShippingAddressManager : IManager, ICRUD<ShippingAddress>
+    class ShippingAddressManager : IService, ICRUD<ShippingAddress>
     {
         private DB myDB;
 

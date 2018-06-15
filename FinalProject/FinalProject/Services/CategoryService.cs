@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinalProject.Services
 {
-    class CategoryService : ICRUD<Category>, IManager
+    class CategoryService : ICRUD<Category>, IService
     {
         private static DB DBCategory = DB.Instance;
 

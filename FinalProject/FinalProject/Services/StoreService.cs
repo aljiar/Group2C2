@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinalProject
 {
-    class StoreManager : IManager, ICRUD<Store>
+    class StoreManager : IService, ICRUD<Store>
     {
         private DB myDB;
 

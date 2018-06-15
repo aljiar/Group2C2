@@ -36,10 +36,6 @@ namespace FinalProject
         public override string ToString()
         {
             string stringProductCart = "Product code: " + ProductCode + ", selected delivery: " + SelectedDelivery;
-            /*if (Store != null)
-            {
-                stringProductCart += ", store: " + Store.ToString();
-            }*/
             stringProductCart += ", quantity: " + Quantity;
             return stringProductCart;
         }
