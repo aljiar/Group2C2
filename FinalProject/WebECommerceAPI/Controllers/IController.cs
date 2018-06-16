@@ -12,12 +12,12 @@ namespace WebECommerceAPI.Controllers
     {
         HttpResponseMessage GetInfo2();
 
-        HttpResponseMessage GetInfo(int id);
+        HttpResponseMessage GetInfo(string id);
 
-        HttpResponseMessage PostInfo(Object content);
+        HttpResponseMessage PostInfo(HttpRequestMessage content);
 
-        HttpResponseMessage UpdateInfo(Object res);
+        HttpResponseMessage UpdateInfo(HttpRequestMessage objeto);
 
-        HttpResponseMessage DeleteInfo(Object id);
+        HttpResponseMessage DeleteInfo(HttpRequestMessage id);
     }
 }

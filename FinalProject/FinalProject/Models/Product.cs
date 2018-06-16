@@ -14,6 +14,7 @@ namespace FinalProject
         public string Description { get; set; }        
         public string Type { get; set; }
         public string ShippingDeliberyType { get; set; }
+        public string imageURL { get; set; }
         public Category Category { get; set; }
 
 
