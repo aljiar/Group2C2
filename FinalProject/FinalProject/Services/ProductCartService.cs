@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FinalProject
 {
-    class ProductCartManager : IService, ICRUD<ProductCart>
+    public class ProductCartManager : IService, ICRUD<ProductCart>
     {
         private Cart cart;
 

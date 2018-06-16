@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace FinalProject
 {
-    class ProductCart
+    public class ProductCart
     {
         public string ProductCode { get; set; }
-        public ShippingDeliveryType SelectedDelivery { get; set; }
+        public string SelectedDelivery { get; set; }
         private Store Store { get; set; }
         public int Quantity { get; set; }
 
-        public ProductCart(string productCode, ShippingDeliveryType selectedDelivery, Store store, int quantity)
+        public ProductCart(string productCode, string selectedDelivery, Store store, int quantity)
         {
             ProductCode = productCode;
             SelectedDelivery = selectedDelivery;
@@ -21,9 +21,9 @@ namespace FinalProject
             Quantity = quantity;
         }
 
-        private void assignStore(ShippingDeliveryType selectedDelivery, Store store)
+        private void assignStore(string selectedDelivery, Store store)
         {
-            if (selectedDelivery == ShippingDeliveryType.InStore)
+            if (selectedDelivery == "InStore")
             {
                 Store = store;
             }

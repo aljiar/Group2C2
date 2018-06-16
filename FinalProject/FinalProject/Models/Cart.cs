@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinalProject
 {
-    class Cart
+    public class Cart
     {
         public List<ProductCart> ListProductCart { get; set; }
         public String Username { get; set; }

@@ -18,6 +18,8 @@ namespace FinalProject
             CRUDCarts();
             Console.ReadKey();
         }
+
+
         public static void CRUDProductCarts()
         {
             Cart cart = new Cart(new List<ProductCart>(), "maria");
@@ -25,9 +27,9 @@ namespace FinalProject
             Product prod1 = new Product() { Code = "001", Name = "TV", Price = 10, Description = "Flat screen" };
             Product prod2 = new Product() { Code = "002", Name = "Radio", Price = 10, Description = "New radio" };
             Product prod3 = new Product() { Code = "003", Name = "Table", Price = 5, Description = "Table" };
-            ProductCart productCart1 = new ProductCart("1", ShippingDeliveryType.Normal, null, 12);
-            ProductCart productCart2 = new ProductCart("2", ShippingDeliveryType.Normal, null, 12);
-            ProductCart productCart3 = new ProductCart("3", ShippingDeliveryType.Express, null, 1);
+            ProductCart productCart1 = new ProductCart("1", "Normal", null, 12);
+            ProductCart productCart2 = new ProductCart("2", "Normal", null, 12);
+            ProductCart productCart3 = new ProductCart("3", "Express", null, 1);
 
             //create
             manager.Create(productCart1); //success
@@ -113,7 +115,7 @@ namespace FinalProject
             Cart cart2 = new Cart(new List<ProductCart>(), "max");
             Cart cart3 = new Cart(new List<ProductCart>(), "cam");
             Product prod1 = new Product() { Code = "001", Name = "TV", Price = 10, Description = "Flat screen" };
-            ProductCart productCart1 = new ProductCart(prod1.Code, ShippingDeliveryType.Normal, null, 12);
+            ProductCart productCart1 = new ProductCart(prod1.Code, "Normal", null, 12);
             //create
             manager.Create(cart1); //fail
             manager.Create(cart3); //success
@@ -149,9 +151,9 @@ namespace FinalProject
             Category categoria2 = new Category() { Name = "categoria2", Description = "descripcion de la segunda categoria" };
             Category categoria3 = new Category() { Name = "categoria3", Description = "descripcion de la tercera categoria" };
 
-            Product product1 = new Product() { Code = "1", Name = "Producto numero1", Price = 10.99, Category = categoria1, Description = "Descripcion del producto1", Type = Type1.Digital, ShippingDeliberyType = ShippingDeliveryType.Express };
-            Product product2 = new Product() { Code = "2", Name = "Producto numero2", Price = 20.50, Category = categoria2, Description = "Descripcion del producto2", Type = Type1.Physical, ShippingDeliberyType = ShippingDeliveryType.Free };
-            Product product3 = new Product() { Code = "3", Name = "Producto numero3", Price = 30.50, Category = categoria2, Description = "Descripcion del producto2", Type = Type1.Physical, ShippingDeliberyType = ShippingDeliveryType.Free };
+            Product product1 = new Product() { Code = "1", Name = "Producto numero1", Price = 10.99, Category = categoria1, Description = "Descripcion del producto1", Type = "Digital", ShippingDeliberyType = "Express" };
+            Product product2 = new Product() { Code = "2", Name = "Producto numero2", Price = 20.50, Category = categoria2, Description = "Descripcion del producto2", Type = "Physical", ShippingDeliberyType = "Free" };
+            Product product3 = new Product() { Code = "3", Name = "Producto numero3", Price = 30.50, Category = categoria2, Description = "Descripcion del producto2", Type = "Physical", ShippingDeliberyType = "Free" };
 
             cateServ.Create(categoria1);
             cateServ.Create(categoria2);

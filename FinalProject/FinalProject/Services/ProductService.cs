@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace FinalProject
 
 {
-    class ProductService : ICRUD<Product>, IService
+    public class ProductService : ICRUD<Product>, IService
     {
         private static DB DBProduct = DB.Instance;
 
