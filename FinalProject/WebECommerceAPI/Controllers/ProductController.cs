@@ -45,19 +45,25 @@ namespace WebECommerceAPI.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage PostInfo(HttpRequestMessage content)
+        public HttpResponseMessage PostInfo(HttpRequestMessage objeto)
         {
+            Product productJSON = JsonConvert.DeserializeObject<Product>(objeto.Content.ReadAsStringAsync().Result);
             var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(content.Content.ReadAsStringAsync().Result, Encoding.UTF8, "application/json");
+            response.Content = new StringContent(objeto.Content.ReadAsStringAsync().Result, Encoding.UTF8, "application/json");
+
+            prodServ.Create(productJSON);
 
             return response;
         }
 
         [HttpPut]
-        public HttpResponseMessage UpdateInfo(HttpRequestMessage objeto)
+        public HttpResponseMessage UpdateInfo(string id, HttpRequestMessage objeto)
         {
+            Product productJSON = JsonConvert.DeserializeObject<Product>(objeto.Content.ReadAsStringAsync().Result);
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(objeto.Content.ReadAsStringAsync().Result, Encoding.UTF8, "application/json");
+
+            prodServ.Update(id, productJSON);
 
             return response;
         }

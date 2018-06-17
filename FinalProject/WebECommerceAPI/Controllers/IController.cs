@@ -14,9 +14,9 @@ namespace WebECommerceAPI.Controllers
 
         HttpResponseMessage GetInfo(string id);
 
-        HttpResponseMessage PostInfo(HttpRequestMessage content);
+        HttpResponseMessage PostInfo(HttpRequestMessage objeto);
 
-        HttpResponseMessage UpdateInfo(HttpRequestMessage objeto);
+        HttpResponseMessage UpdateInfo(string id, HttpRequestMessage objeto);
 
         HttpResponseMessage DeleteInfo(HttpRequestMessage id);
     }
