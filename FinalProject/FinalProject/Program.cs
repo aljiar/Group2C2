@@ -151,9 +151,9 @@ namespace FinalProject
             Category categoria2 = new Category() { Name = "categoria2", Description = "descripcion de la segunda categoria" };
             Category categoria3 = new Category() { Name = "categoria3", Description = "descripcion de la tercera categoria" };
 
-            Product product1 = new Product() { Code = "1", Name = "Producto numero1", Price = 10.99, Category = categoria1, Description = "Descripcion del producto1", Type = "Digital", ShippingDeliberyType = "Express", imageURL = "image1" };
-            Product product2 = new Product() { Code = "2", Name = "Producto numero2", Price = 20.50, Category = categoria2, Description = "Descripcion del producto2", Type = "Physical", ShippingDeliberyType = "Free", imageURL = "image2" };
-            Product product3 = new Product() { Code = "3", Name = "Producto numero3", Price = 30.50, Category = categoria2, Description = "Descripcion del producto2", Type = "Physical", ShippingDeliberyType = "Free", imageURL = "image3"};
+            Product product1 = new Product() { Code = "1", Name = "Producto numero1", Price = 10.99, Category = categoria1, Description = "Descripcion del producto1", Type = "Digital", ShippingDeliveryType = "Express", imageURL = "image1" };
+            Product product2 = new Product() { Code = "2", Name = "Producto numero2", Price = 20.50, Category = categoria2, Description = "Descripcion del producto2", Type = "Physical", ShippingDeliveryType = "Free", imageURL = "image2" };
+            Product product3 = new Product() { Code = "3", Name = "Producto numero3", Price = 30.50, Category = categoria2, Description = "Descripcion del producto2", Type = "Physical", ShippingDeliveryType = "Free", imageURL = "image3"};
 
             cateServ.Create(categoria1);
             cateServ.Create(categoria2);

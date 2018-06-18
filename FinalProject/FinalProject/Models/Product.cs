@@ -13,7 +13,7 @@ namespace FinalProject
         public double Price { get; set; }
         public string Description { get; set; }        
         public string Type { get; set; }
-        public string ShippingDeliberyType { get; set; }
+        public string ShippingDeliveryType { get; set; }
         public string imageURL { get; set; }
         public Category Category { get; set; }
 
@@ -28,7 +28,7 @@ namespace FinalProject
             Console.WriteLine("PRICE: " + Price);
             Console.WriteLine("DESCRIPTION: " + Description);
             Console.WriteLine("TYPE: " + Type);
-            Console.WriteLine("SHIPPING DELIBERY TYPE: " + ShippingDeliberyType);
+            Console.WriteLine("SHIPPING DELIBERY TYPE: " + ShippingDeliveryType);
             Console.WriteLine("CATEGORY: " + Category);
         }
     }
