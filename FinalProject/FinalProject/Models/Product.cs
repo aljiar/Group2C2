@@ -20,7 +20,7 @@ namespace FinalProject
         [JsonProperty(Required = Required.Always)]
         public string Type { get; set; }
         [JsonProperty(Required = Required.Always)]
-        public string ShippingDeliberyType { get; set; }
+        public string ShippingDeliveryType { get; set; }
         [JsonProperty(Required = Required.Always)]
         public string imageURL { get; set; }
         [JsonProperty(Required = Required.Always)]
@@ -37,7 +37,7 @@ namespace FinalProject
             Console.WriteLine("PRICE: " + Price);
             Console.WriteLine("DESCRIPTION: " + Description);
             Console.WriteLine("TYPE: " + Type);
-            Console.WriteLine("SHIPPING DELIBERY TYPE: " + ShippingDeliberyType);
+            Console.WriteLine("SHIPPING DELIBERY TYPE: " + ShippingDeliveryType);
             Console.WriteLine("CATEGORY: " + Category);
         }
     }
