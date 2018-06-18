@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
+using System.Collections;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -13,42 +15,7 @@ namespace WebECommerceAPI.Controllers
     {
         ProductService prodServ = new ProductService();
 
-        [HttpDelete]
-        public HttpResponseMessage DeleteInfo(HttpRequestMessage id)
-        {
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(id.Content.ReadAsStringAsync().Result, Encoding.UTF8, "application/json");
-
-            return response;
-        }
-
-        [HttpGet]
-        public HttpResponseMessage GetInfo(string id)
-        {
-            string productJSON = JsonConvert.SerializeObject(prodServ, Formatting.Indented);
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(productJSON, Encoding.UTF8, "application/json");
-
-
-            return response;
-        }
-
-        [HttpGet]
-        public HttpResponseMessage GetInfo2()
-        {
-            string productJSON = JsonConvert.SerializeObject(prodServ.Read(), Formatting.Indented);
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(productJSON, Encoding.UTF8, "application/json");
-
-            return response;
-        }
-
-        [HttpPost]
-        public HttpResponseMessage PostInfo(HttpRequestMessage objeto)
-        {
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            
-            string schemaJson = @"{
+        string schemaJson = @"{
                 'description' : 'A Product',
                 'type' : 'object',
                 'properties' : {
@@ -70,26 +37,86 @@ namespace WebECommerceAPI.Controllers
                   'additionalProperties': false
             }";
 
-            JSchema schema = JSchema.Parse(schemaJson);
-            JObject product = JObject.Parse(objeto.Content.ReadAsStringAsync().Result);
 
-            bool valid = product.IsValid(schema);
-            
-            if (!valid)
+
+        [HttpDelete]
+        public HttpResponseMessage DeleteInfo(HttpRequestMessage id)
+        {
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent(id.Content.ReadAsStringAsync().Result, Encoding.UTF8, "application/json");
+
+            return response;
+        }
+
+
+        [HttpGet]
+        public HttpResponseMessage GetInfo(string id)
+        {
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            List<Product> products = prodServ.Read();
+            int index = products.FindIndex(x => x.Code == id);
+
+            if (index != -1)
             {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                response.Content = new StringContent("{ \"Error\": \"Error inserting a new product.\" }", Encoding.UTF8, "application/json");
+                Product product = products[index];
+                string productJSON = JsonConvert.SerializeObject(product, Formatting.Indented);
+                response.Content = new StringContent(productJSON, Encoding.UTF8, "application/json");
             }
             else
             {
-                response.Content = new StringContent(objeto.Content.ReadAsStringAsync().Result, Encoding.UTF8, "application/json");
-
-                Product productJSON = JsonConvert.DeserializeObject<Product>(objeto.Content.ReadAsStringAsync().Result);
-                prodServ.Create(productJSON);
+                response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                response.Content = new StringContent("{ \"Error\": \"There was an error looking for a product with the specified ID.\" }", Encoding.UTF8, "application/json");
             }
 
             return response;
         }
+
+
+        [HttpGet]
+        public HttpResponseMessage GetInfo2()
+        {
+            string productJSON = JsonConvert.SerializeObject(prodServ.Read(), Formatting.Indented);
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent(productJSON, Encoding.UTF8, "application/json");
+
+            return response;
+        }
+
+
+
+        [HttpPost]
+        public HttpResponseMessage PostInfo(HttpRequestMessage objeto)
+        {
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+           
+
+            JSchema schema = JSchema.Parse(schemaJson);
+            JObject product = JObject.Parse(objeto.Content.ReadAsStringAsync().Result);
+            IList<string> errorMessages;
+            bool valid = product.IsValid(schema, out errorMessages);
+            
+            if (!valid)
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                response.Content = new StringContent("{ \"Error\": \"Error inserting a new product.\", \"Details\": \"" + errorMessages + "\" }", Encoding.UTF8, "application/json");
+            }
+            else
+            {
+                bool created = false;
+                response.Content = new StringContent(objeto.Content.ReadAsStringAsync().Result, Encoding.UTF8, "application/json");
+
+                Product productJSON = JsonConvert.DeserializeObject<Product>(objeto.Content.ReadAsStringAsync().Result);
+                created = prodServ.Create(productJSON);
+
+                if(created == false)
+                {
+                    response.Content = new StringContent("{ \"Error\": \"There was an error while creating a new product.\" }", Encoding.UTF8, "application/json");
+                }
+            }
+
+            return response;
+        }
+
 
 
         [HttpPut]
