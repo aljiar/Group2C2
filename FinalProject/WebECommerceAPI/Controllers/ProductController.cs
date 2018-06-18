@@ -16,10 +16,10 @@ namespace WebECommerceAPI.Controllers
         ProductService prodServ = new ProductService();
 
         [HttpDelete]
-        public HttpResponseMessage DeleteInfo(HttpRequestMessage id)
+        public HttpResponseMessage DeleteInfo(string id)
         {
             var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(id.Content.ReadAsStringAsync().Result, Encoding.UTF8, "application/json");
+            //response.Content = new StringContent(id.Content.ReadAsStringAsync().Result, Encoding.UTF8, "application/json");
 
             return response;
         }
