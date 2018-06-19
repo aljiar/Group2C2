@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
-using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -88,7 +87,6 @@ namespace WebECommerceAPI.Controllers
         public HttpResponseMessage PostInfo(HttpRequestMessage objeto)
         {
             var response = Request.CreateResponse(HttpStatusCode.OK);
-           
 
             JSchema schema = JSchema.Parse(schemaJson);
             JObject product = JObject.Parse(objeto.Content.ReadAsStringAsync().Result);
@@ -110,6 +108,7 @@ namespace WebECommerceAPI.Controllers
 
                 if(created == false)
                 {
+                    response = Request.CreateResponse(HttpStatusCode.BadRequest);
                     response.Content = new StringContent("{ \"Error\": \"There was an error while creating a new product.\" }", Encoding.UTF8, "application/json");
                 }
             }
@@ -122,11 +121,32 @@ namespace WebECommerceAPI.Controllers
         [HttpPut]
         public HttpResponseMessage UpdateInfo(string id, HttpRequestMessage objeto)
         {
-            Product productJSON = JsonConvert.DeserializeObject<Product>(objeto.Content.ReadAsStringAsync().Result);
             var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(objeto.Content.ReadAsStringAsync().Result, Encoding.UTF8, "application/json");
 
-            prodServ.Update(id, productJSON);
+            JSchema schema = JSchema.Parse(schemaJson);
+            JObject product = JObject.Parse(objeto.Content.ReadAsStringAsync().Result);
+            IList<string> errorMessages;
+            bool valid = product.IsValid(schema, out errorMessages);
+
+            if (!valid)
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                response.Content = new StringContent("{ \"Error\": \"There was an error updating the product with the specified ID.\", \"Details\": \"" + errorMessages + "\" }", Encoding.UTF8, "application/json");
+            }
+            else
+            {
+                bool updated = false;
+                response.Content = new StringContent(objeto.Content.ReadAsStringAsync().Result, Encoding.UTF8, "application/json");
+
+                Product productJSON = JsonConvert.DeserializeObject<Product>(objeto.Content.ReadAsStringAsync().Result);
+                updated = prodServ.Update(id, productJSON);
+
+                if (updated == false)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                    response.Content = new StringContent("{ \"Error\": \"There was an error updating the product with the specified ID.\" }", Encoding.UTF8, "application/json");
+                }
+            }
 
             return response;
         }
