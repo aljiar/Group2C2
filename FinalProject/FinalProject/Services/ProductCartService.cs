@@ -11,19 +11,27 @@ namespace FinalProject
     {
         private Cart cart;
 
-        public ProductCartManager(Cart cart)
+        public void setCart(Cart cart)
         {
             this.cart = cart;
         }
 
         public bool checkIfExists(string productCode)
         {
-            return cart.ListProductCart.Exists((x => x.ProductCode == productCode));
+            if (cart != null)
+            {
+                return cart.ListProductCart.Exists((x => x.ProductCode == productCode));
+            }
+            return false;
         }
 
         public int getIndexByKey(string productCode)
         {
-            return cart.ListProductCart.FindIndex((x => x.ProductCode == productCode));
+            if (cart != null)
+            {
+                return cart.ListProductCart.FindIndex((x => x.ProductCode == productCode));
+            }
+            return -1;
         }
 
         public bool Create(ProductCart prodCart)

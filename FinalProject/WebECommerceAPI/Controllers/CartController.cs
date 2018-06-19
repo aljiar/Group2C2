@@ -10,28 +10,27 @@ using System.Text;
 
 namespace WebECommerceAPI.Controllers
 {
-    public class UserController : ApiController, IController
+    public class CartController : ApiController, IController
     {
-        UserManager userService = new UserManager();
+        CartManager cartService = new CartManager();
 
         [HttpGet]
-        [Route("api/user/{key}")]
-        public HttpResponseMessage GetInfo(string key)
+        public HttpResponseMessage GetInfo(string id)
         {
             HttpResponseMessage response;
             HttpStatusCode status;
             string responseMessageJSON;
-            int index = userService.getIndexByKey(key);
+            int index = cartService.getIndexByKey(id);
             if (index != -1)
             {
                 status = HttpStatusCode.OK;
-                User user = userService.Read()[index];
-                responseMessageJSON = JsonConvert.SerializeObject(user);
+                Cart cart = cartService.Read()[index];
+                responseMessageJSON = JsonConvert.SerializeObject(cart);
             }
             else
             {
                 status = HttpStatusCode.NotFound;
-                responseMessageJSON = JsonConvert.SerializeObject(new { message = string.Format("User with id = {0} was not found", key) });
+                responseMessageJSON = JsonConvert.SerializeObject(new { message = string.Format("Cart with id = {0} was not found", id) });
             }
             response = Request.CreateResponse(status);
             response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json"); ;
@@ -42,9 +41,9 @@ namespace WebECommerceAPI.Controllers
         public HttpResponseMessage GetInfo2()
         {
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
-            List<User> users = userService.Read();
-            string usersJSON = JsonConvert.SerializeObject(users, Formatting.Indented);
-            response.Content = new StringContent(usersJSON, Encoding.UTF8, "application/json");
+            List<Cart> carts = cartService.Read();
+            string cartsJSON = JsonConvert.SerializeObject(carts, Formatting.Indented);
+            response.Content = new StringContent(cartsJSON, Encoding.UTF8, "application/json");
             return response;
         }
 
@@ -57,22 +56,22 @@ namespace WebECommerceAPI.Controllers
             string responseMessage;
             try
             {
-                User newUser = JsonConvert.DeserializeObject<User>(content);
-                if (userService.Create(newUser))
+                Cart newCart = JsonConvert.DeserializeObject<Cart>(content);
+                if (cartService.Create(newCart))
                 {
                     status = HttpStatusCode.Created;
-                    responseMessage = "User was created successfully";
+                    responseMessage = "Cart was created successfully";
                 }
                 else
                 {
                     status = HttpStatusCode.Conflict;
-                    responseMessage = "Failed to create user";
+                    responseMessage = "Failed to create cart";
                 }
             }
             catch (Exception e)
             {
                 status = HttpStatusCode.BadRequest;
-                responseMessage = "Couldn't convert data to User object";
+                responseMessage = "Couldn't convert data to Cart object";
 
             }
             response = Request.CreateResponse(status);
@@ -90,22 +89,22 @@ namespace WebECommerceAPI.Controllers
             string responseMessage;
             try
             {
-                User newUser = JsonConvert.DeserializeObject<User>(content);
-                if (userService.Update(id, newUser))
+                Cart newCart = JsonConvert.DeserializeObject<Cart>(content);
+                if (cartService.Update(id, newCart))
                 {
                     status = HttpStatusCode.Created;
-                    responseMessage = "User was updated successfully";
+                    responseMessage = "Cart was updated successfully";
                 }
                 else
                 {
                     status = HttpStatusCode.Conflict;
-                    responseMessage = "Failed to update user";
+                    responseMessage = "Failed to update cart";
                 }
             }
             catch (Exception e)
             {
                 status = HttpStatusCode.BadRequest;
-                responseMessage = "Couldn't convert data to User object";
+                responseMessage = "Couldn't convert data to Cart object";
 
             }
             response = Request.CreateResponse(status);
@@ -115,24 +114,24 @@ namespace WebECommerceAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("api/user/{key}")]
+        [Route("api/cart/{key}")]
         public HttpResponseMessage DeleteInfo(string key)
         {
             HttpResponseMessage response;
             HttpStatusCode status;
             string responseMessage;
-            if (userService.Delete(key))
+            if (cartService.Delete(key))
             {
                 status = HttpStatusCode.OK;
-                responseMessage = "User was deleted successfully";
+                responseMessage = "Cart was deleted successfully";
             }
             else
             {
                 status = HttpStatusCode.BadRequest;
-                responseMessage = "User does not exist";
+                responseMessage = "Cart does not exist";
             }
             response = Request.CreateResponse(status);
-            string responseMessageJSON = JsonConvert.SerializeObject(new { message = responseMessage});
+            string responseMessageJSON = JsonConvert.SerializeObject(new { message = responseMessage });
             response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json");
             return response;
         }
