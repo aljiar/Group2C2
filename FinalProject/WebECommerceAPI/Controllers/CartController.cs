@@ -114,7 +114,7 @@ namespace WebECommerceAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("api/user/{key}")]
+        [Route("api/cart/{key}")]
         public HttpResponseMessage DeleteInfo(string key)
         {
             HttpResponseMessage response;
