@@ -39,6 +39,7 @@ namespace WebECommerceAPI.Controllers
         }
 
         [HttpGet]
+        [Route("api/user")]
         public HttpResponseMessage GetInfo2()
         {
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
@@ -49,6 +50,7 @@ namespace WebECommerceAPI.Controllers
         }
 
         [HttpPost]
+        [Route("api/user")]
         public HttpResponseMessage PostInfo(HttpRequestMessage request)
         {
             string content = request.Content.ReadAsStringAsync().Result;
@@ -82,7 +84,8 @@ namespace WebECommerceAPI.Controllers
         }
 
         [HttpPut]
-        public HttpResponseMessage UpdateInfo(string id, HttpRequestMessage request)
+        [Route("api/user/{key}")]
+        public HttpResponseMessage UpdateInfo(string key, HttpRequestMessage request)
         {
             string content = request.Content.ReadAsStringAsync().Result;
             HttpResponseMessage response;
@@ -91,7 +94,7 @@ namespace WebECommerceAPI.Controllers
             try
             {
                 User newUser = JsonConvert.DeserializeObject<User>(content);
-                if (userService.Update(id, newUser))
+                if (userService.Update(key, newUser))
                 {
                     status = HttpStatusCode.Created;
                     responseMessage = "User was updated successfully";

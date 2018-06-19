@@ -15,12 +15,13 @@ namespace WebECommerceAPI.Controllers
         CartManager cartService = new CartManager();
 
         [HttpGet]
-        public HttpResponseMessage GetInfo(string id)
+        [Route("api/cart/{key}")]
+        public HttpResponseMessage GetInfo(string key)
         {
             HttpResponseMessage response;
             HttpStatusCode status;
             string responseMessageJSON;
-            int index = cartService.getIndexByKey(id);
+            int index = cartService.getIndexByKey(key);
             if (index != -1)
             {
                 status = HttpStatusCode.OK;
@@ -30,7 +31,7 @@ namespace WebECommerceAPI.Controllers
             else
             {
                 status = HttpStatusCode.NotFound;
-                responseMessageJSON = JsonConvert.SerializeObject(new { message = string.Format("Cart with id = {0} was not found", id) });
+                responseMessageJSON = JsonConvert.SerializeObject(new { message = string.Format("Cart with id = {0} was not found", key) });
             }
             response = Request.CreateResponse(status);
             response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json"); ;
@@ -38,6 +39,7 @@ namespace WebECommerceAPI.Controllers
         }
 
         [HttpGet]
+        [Route("api/cart")]
         public HttpResponseMessage GetInfo2()
         {
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
@@ -48,6 +50,7 @@ namespace WebECommerceAPI.Controllers
         }
 
         [HttpPost]
+        [Route("api/cart")]
         public HttpResponseMessage PostInfo(HttpRequestMessage request)
         {
             string content = request.Content.ReadAsStringAsync().Result;
@@ -81,6 +84,7 @@ namespace WebECommerceAPI.Controllers
         }
 
         [HttpPut]
+        [Route("api/cart/{id}")]
         public HttpResponseMessage UpdateInfo(string id, HttpRequestMessage request)
         {
             string content = request.Content.ReadAsStringAsync().Result;
