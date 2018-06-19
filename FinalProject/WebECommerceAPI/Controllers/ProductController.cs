@@ -38,16 +38,6 @@ namespace WebECommerceAPI.Controllers
 
 
 
-        [HttpDelete]
-        public HttpResponseMessage DeleteInfo(string id)
-        {
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            //response.Content = new StringContent(id.Content.ReadAsStringAsync().Result, Encoding.UTF8, "application/json");
-
-            return response;
-        }
-
-
         [HttpGet]
         public HttpResponseMessage GetInfo(string id)
         {
@@ -150,5 +140,29 @@ namespace WebECommerceAPI.Controllers
 
             return response;
         }
+
+
+
+        [HttpDelete]
+        public HttpResponseMessage DeleteInfo(string id)
+        {
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            bool deleted;
+
+            deleted = prodServ.Delete(id);
+                
+            if (deleted == true)
+            {
+                response.Content = new StringContent("{ \"Deleted\": \"The Product was successfully deleted.\"}", Encoding.UTF8, "application/json");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                response.Content = new StringContent("{ \"Error\": \"There was an error looking for a product with the specified ID.\" }", Encoding.UTF8, "application/json");
+            }
+
+            return response;
+        }
+
     }
 }
