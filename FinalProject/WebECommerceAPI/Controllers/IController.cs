@@ -18,6 +18,6 @@ namespace WebECommerceAPI.Controllers
 
         HttpResponseMessage UpdateInfo(string id, HttpRequestMessage objeto);
 
-        HttpResponseMessage DeleteInfo(HttpRequestMessage id);
+        HttpResponseMessage DeleteInfo(string id);
     }
 }
