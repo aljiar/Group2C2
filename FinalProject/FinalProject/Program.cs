@@ -23,7 +23,8 @@ namespace FinalProject
         public static void CRUDProductCarts()
         {
             Cart cart = new Cart(new List<ProductCart>(), "maria");
-            ProductCartManager manager = new ProductCartManager(cart);
+            ProductCartManager manager = new ProductCartManager();
+            manager.setCart(cart);
             Product prod1 = new Product() { Code = "001", Name = "TV", Price = 10, Description = "Flat screen" };
             Product prod2 = new Product() { Code = "002", Name = "Radio", Price = 10, Description = "New radio" };
             Product prod3 = new Product() { Code = "003", Name = "Table", Price = 5, Description = "Table" };
