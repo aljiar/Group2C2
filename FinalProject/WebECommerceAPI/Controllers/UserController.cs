@@ -39,7 +39,6 @@ namespace WebECommerceAPI.Controllers
         }
 
         [HttpGet]
-        [Route("api/user")]
         public HttpResponseMessage GetInfo2()
         {
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
@@ -50,7 +49,6 @@ namespace WebECommerceAPI.Controllers
         }
 
         [HttpPost]
-        [Route("api/user")]
         public HttpResponseMessage PostInfo(HttpRequestMessage request)
         {
             string content = request.Content.ReadAsStringAsync().Result;
@@ -84,7 +82,6 @@ namespace WebECommerceAPI.Controllers
         }
 
         [HttpPut]
-        [Route("api/user/{id}")]
         public HttpResponseMessage UpdateInfo(string id, HttpRequestMessage request)
         {
             string content = request.Content.ReadAsStringAsync().Result;
