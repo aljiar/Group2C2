@@ -9,9 +9,7 @@ namespace FinalProject
 {
     public class Category
     {
-        [JsonProperty(Required = Required.Always)]
         public string Name { get; set; }
-        [JsonProperty(Required = Required.Always)]
         public string Description { get; set; }
 
 
