@@ -16,7 +16,7 @@ export class SecondPageComponent implements OnInit {
 
   ngOnInit() {
     this.service.getProduct().subscribe(data => {
-      this.products = data.products;
+      this.products = data;
     })
   }
 }
