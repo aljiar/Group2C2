@@ -4,6 +4,7 @@ import {LoginPageComponent} from './components/login-page/login-page.component';
 import { combineLatest } from 'rxjs';
 
 const routes: Routes = [
+  {path: '', component:LoginPageComponent},
   {path: 'login', component:LoginPageComponent}
 ];
 
