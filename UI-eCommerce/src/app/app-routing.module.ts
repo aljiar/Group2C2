@@ -7,7 +7,7 @@ import { combineLatest } from 'rxjs';
 const routes: Routes = [
   {path: '', component:LoginPageComponent},
   {path: 'login', component:LoginPageComponent},
-  {path: 'home', component:SecondPageComponent},
+  {path: 'secondPage', component:SecondPageComponent},
 ];
 
 
