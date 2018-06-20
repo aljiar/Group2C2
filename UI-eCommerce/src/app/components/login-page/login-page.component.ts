@@ -23,12 +23,12 @@ export class LoginPageComponent implements OnInit {
   
   loginButtonPressed(form:NgForm){
     this.userService.getUserByUsername(form.value.username).subscribe(
-      data => this.login(form.value.username),
+      data => this.login(form.value.username, data),
       err => alert("Username does not exist")
     );
   }
 
-  login(username: string){
+  login(username: string, data){
     localStorage.setItem('username',username);
     this.router.navigate([''])
   }

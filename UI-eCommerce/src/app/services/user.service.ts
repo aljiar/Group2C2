@@ -11,6 +11,6 @@ export class UserService {
   }
 
   getUserByUsername(username) {
-    return this.http.get('https://localhost:40097/api/user/'+username)
+    return this.http.get('http://localhost:40097/api/user/'+username)
   }
 }
