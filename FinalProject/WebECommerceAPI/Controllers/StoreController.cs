@@ -9,7 +9,7 @@ using System.Web.Http.Cors;
 
 namespace WebECommerceAPI.Controllers
 {
-    //[EnableCors(origins: "http://localhost", headers: "*", methods: "*")]
+    //[EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     /* class StoreController : ApiController, IController
     {
         StoreManager prodServ = new StoreManager();

@@ -12,7 +12,7 @@ using System.Web.Http.Cors;
 
 namespace WebECommerceAPI.Controllers
 {
-    [EnableCors(origins: "http://localhost", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class CategoryController : ApiController, IController
     {
         CategoryService categoryServ = new CategoryService();
