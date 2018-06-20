@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -11,5 +11,8 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit() {
   }
+  login(form:NgForm){
+    console.log(form.value);
 
+  }
 }
