@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -14,145 +15,131 @@ namespace WebECommerceAPI.Controllers
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class ProductController : ApiController, IController
     {
-        StoreManager storeService = new StoreManager();
-
-        string schemaJson = @"{
-                'description' : 'A Store',
-                'type' : 'object',
-                'properties' : {
-                                    'Name' : {'type' : 'string', 'required' : true},
-                                    'Line1' : {'type' : 'string', 'required' : true},
-                                    'Line2' : {'type' : 'string', 'required' : true},
-                                    'Phone' : {'type' : 'number', 'required' : true}
-                                },
-                  'additionalProperties': false
-            }";
-
-
+        ProductService productService = new ProductService();
 
         [HttpGet]
-        public HttpResponseMessage GetInfo(string id)
+        [Route("api/product/{key}")]
+        public HttpResponseMessage GetInfo(string key)
         {
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            List<Store> stores = storeService.Read();
-            int index = stores.FindIndex(x => x.Name == id);
-
+            HttpResponseMessage response;
+            HttpStatusCode status;
+            string responseMessageJSON;
+            int index = productService.getIndexByKey(key);
             if (index != -1)
             {
-                Store store = stores[index];
-                string storeJSON = JsonConvert.SerializeObject(store, Formatting.Indented);
-                response.Content = new StringContent(storeJSON, Encoding.UTF8, "application/json");
+                status = HttpStatusCode.OK;
+                Product product = productService.Read()[index];
+                responseMessageJSON = JsonConvert.SerializeObject(product);
             }
             else
             {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                response.Content = new StringContent("{ \"message\": \"There was an error looking for a store with the specified ID.\" }", Encoding.UTF8, "application/json");
+                status = HttpStatusCode.NotFound;
+                responseMessageJSON = JsonConvert.SerializeObject(new { message = string.Format("Product with id = {0} was not found", key) });
             }
-
+            response = Request.CreateResponse(status);
+            response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json"); ;
             return response;
         }
-
 
         [HttpGet]
+        [Route("api/product")]
         public HttpResponseMessage GetInfo2()
         {
-            string storeJSON = JsonConvert.SerializeObject(storeService.Read(), Formatting.Indented);
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(storeJSON, Encoding.UTF8, "application/json");
-
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+            List<Product> products = productService.Read();
+            string productsJSON = JsonConvert.SerializeObject(products, Formatting.Indented);
+            response.Content = new StringContent(productsJSON, Encoding.UTF8, "application/json");
             return response;
         }
-
-
 
         [HttpPost]
-        public HttpResponseMessage PostInfo(HttpRequestMessage objeto)
+        [Route("api/product")]
+        public HttpResponseMessage PostInfo(HttpRequestMessage request)
         {
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-
-            JSchema schema = JSchema.Parse(schemaJson);
-            JObject store = JObject.Parse(objeto.Content.ReadAsStringAsync().Result);
-            IList<string> errorMessages;
-            bool valid = store.IsValid(schema, out errorMessages);
-            
-            if (!valid)
+            string content = request.Content.ReadAsStringAsync().Result;
+            HttpResponseMessage response;
+            HttpStatusCode status;
+            string responseMessage;
+            try
             {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                response.Content = new StringContent("{ \"message\": \"Error inserting a new store.\", \"Details\": \"" + errorMessages + "\" }", Encoding.UTF8, "application/json");
-            }
-            else
-            {
-                bool created = false;
-                response.Content = new StringContent(objeto.Content.ReadAsStringAsync().Result, Encoding.UTF8, "application/json");
-
-                Store storeJSON = JsonConvert.DeserializeObject<Store>(objeto.Content.ReadAsStringAsync().Result);
-                created = storeService.Create(storeJSON);
-
-                if(created == false)
+                Product newProduct = JsonConvert.DeserializeObject<Product>(content);
+                if (productService.Create(newProduct))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                    response.Content = new StringContent("{ \"message\": \"There was an error while creating a new store.\" }", Encoding.UTF8, "application/json");
+                    status = HttpStatusCode.Created;
+                    responseMessage = "Product was created successfully";
+                }
+                else
+                {
+                    status = HttpStatusCode.Conflict;
+                    responseMessage = "Failed to create product";
                 }
             }
+            catch (Exception e)
+            {
+                status = HttpStatusCode.BadRequest;
+                responseMessage = "Couldn't convert data to Product object";
 
+            }
+            response = Request.CreateResponse(status);
+            string responseContentJSON = JsonConvert.SerializeObject(new { message = responseMessage });
+            response.Content = new StringContent(responseContentJSON, Encoding.UTF8, "application/json");
             return response;
         }
-
-
 
         [HttpPut]
-        public HttpResponseMessage UpdateInfo(string id, HttpRequestMessage objeto)
+        [Route("api/product/{key}")]
+        public HttpResponseMessage UpdateInfo(string key, HttpRequestMessage request)
         {
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-
-            JSchema schema = JSchema.Parse(schemaJson);
-            JObject store = JObject.Parse(objeto.Content.ReadAsStringAsync().Result);
-            IList<string> errorMessages;
-            bool valid = store.IsValid(schema, out errorMessages);
-
-            if (!valid)
+            string content = request.Content.ReadAsStringAsync().Result;
+            HttpResponseMessage response;
+            HttpStatusCode status;
+            string responseMessage;
+            try
             {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                response.Content = new StringContent("{ \"Error\": \"There was an error updating the store with the specified ID.\", \"Details\": \"" + errorMessages + "\" }", Encoding.UTF8, "application/json");
-            }
-            else
-            {
-                bool updated = false;
-                response.Content = new StringContent(objeto.Content.ReadAsStringAsync().Result, Encoding.UTF8, "application/json");
-
-                Store storeJSON = JsonConvert.DeserializeObject<Store>(objeto.Content.ReadAsStringAsync().Result);
-                updated = storeService.Update(id, storeJSON);
-
-                if (updated == false)
+                Product newProduct = JsonConvert.DeserializeObject<Product>(content);
+                if (productService.Update(key, newProduct))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                    response.Content = new StringContent("{ \"Error\": \"There was an error updating the store with the specified ID.\" }", Encoding.UTF8, "application/json");
+                    status = HttpStatusCode.Created;
+                    responseMessage = "Product was updated successfully";
+                }
+                else
+                {
+                    status = HttpStatusCode.Conflict;
+                    responseMessage = "Failed to update product";
                 }
             }
+            catch (Exception e)
+            {
+                status = HttpStatusCode.BadRequest;
+                responseMessage = "Couldn't convert data to Product object";
 
+            }
+            response = Request.CreateResponse(status);
+            string responseContentJSON = JsonConvert.SerializeObject(new { message = responseMessage });
+            response.Content = new StringContent(responseContentJSON, Encoding.UTF8, "application/json");
             return response;
         }
 
-
-
         [HttpDelete]
-        public HttpResponseMessage DeleteInfo(string id)
+        [Route("api/product/{key}")]
+        public HttpResponseMessage DeleteInfo(string key)
         {
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            bool deleted;
-
-            deleted = storeService.Delete(id);
-                
-            if (deleted == true)
+            HttpResponseMessage response;
+            HttpStatusCode status;
+            string responseMessage;
+            if (productService.Delete(key))
             {
-                response.Content = new StringContent("{ \"Deleted\": \"The Store was successfully deleted.\"}", Encoding.UTF8, "application/json");
+                status = HttpStatusCode.OK;
+                responseMessage = "Product was deleted successfully";
             }
             else
             {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                response.Content = new StringContent("{ \"Error\": \"There was an error looking for a store with the specified ID.\" }", Encoding.UTF8, "application/json");
+                status = HttpStatusCode.BadRequest;
+                responseMessage = "Product does not exist";
             }
-
+            response = Request.CreateResponse(status);
+            string responseMessageJSON = JsonConvert.SerializeObject(new { message = responseMessage });
+            response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json");
             return response;
         }
 

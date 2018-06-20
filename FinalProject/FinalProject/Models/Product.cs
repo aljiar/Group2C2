@@ -9,13 +9,21 @@ namespace FinalProject
 {
     public class Product
     {
+        [JsonProperty(Required = Required.Always)]
         public string Code { get; set; }
+        [JsonProperty(Required = Required.Always)]
         public string Name { get; set; }
+        [JsonProperty(Required = Required.Always)]
         public double Price { get; set; }
+        [JsonProperty(Required = Required.Always)]
         public string Description { get; set; }
+        [JsonProperty(Required = Required.Always)]
         public string Type { get; set; }
+        [JsonProperty(Required = Required.Always)]
         public string ShippingDeliveryType { get; set; }
+        [JsonProperty(Required = Required.Always)]
         public string imageURL { get; set; }
+        [JsonProperty(Required = Required.Always)]
         public Category Category { get; set; }
 
 

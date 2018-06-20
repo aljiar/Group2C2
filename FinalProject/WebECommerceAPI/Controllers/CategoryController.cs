@@ -2,7 +2,7 @@
 using FinalProject.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -15,140 +15,131 @@ namespace WebECommerceAPI.Controllers
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class CategoryController : ApiController, IController
     {
-        CategoryService categoryServ = new CategoryService();
-
-        string schemaJson = @"{
-                'description' : 'A Category',
-                'type' : 'object',
-                'properties' : {
-                                    'Name' : {'type' : 'string', 'required' : true},
-                                    'Description' : {'type' : 'string', 'required' : true}
-                                },
-                  'additionalProperties': false
-        }";
-
+        CategoryService categoryService = new CategoryService();
 
         [HttpGet]
-        public HttpResponseMessage GetInfo(string id)
+        [Route("api/category/{key}")]
+        public HttpResponseMessage GetInfo(string key)
         {
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            List<Category> categories = categoryServ.Read();
-            int index = categories.FindIndex(x => x.Name == id);
-
+            HttpResponseMessage response;
+            HttpStatusCode status;
+            string responseMessageJSON;
+            int index = categoryService.getIndexByKey(key);
             if (index != -1)
             {
-                Category category = categories[index];
-                string productJSON = JsonConvert.SerializeObject(category, Formatting.Indented);
-                response.Content = new StringContent(productJSON, Encoding.UTF8, "application/json");
+                status = HttpStatusCode.OK;
+                Category category = categoryService.Read()[index];
+                responseMessageJSON = JsonConvert.SerializeObject(category);
             }
             else
             {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                response.Content = new StringContent("{ \"message\": \"There was an error looking for a category with the specified ID.\" }", Encoding.UTF8, "application/json");
+                status = HttpStatusCode.NotFound;
+                responseMessageJSON = JsonConvert.SerializeObject(new { message = string.Format("Category with id = {0} was not found", key) });
             }
-
+            response = Request.CreateResponse(status);
+            response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json"); ;
             return response;
         }
 
-
         [HttpGet]
+        [Route("api/category")]
         public HttpResponseMessage GetInfo2()
         {
-            string categoryJSON = JsonConvert.SerializeObject(categoryServ.Read(), Formatting.Indented);
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(categoryJSON, Encoding.UTF8, "application/json");
-
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+            List<Category> categories = categoryService.Read();
+            string categoriesJSON = JsonConvert.SerializeObject(categories, Formatting.Indented);
+            response.Content = new StringContent(categoriesJSON, Encoding.UTF8, "application/json");
             return response;
         }
 
         [HttpPost]
-        public HttpResponseMessage PostInfo(HttpRequestMessage objeto)
+        [Route("api/category")]
+        public HttpResponseMessage PostInfo(HttpRequestMessage request)
         {
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-
-            JSchema schema = JSchema.Parse(schemaJson);
-            JObject category = JObject.Parse(objeto.Content.ReadAsStringAsync().Result);
-            IList<string> errorMessages;
-            bool valid = category.IsValid(schema, out errorMessages);
-
-            if (!valid)
+            string content = request.Content.ReadAsStringAsync().Result;
+            HttpResponseMessage response;
+            HttpStatusCode status;
+            string responseMessage;
+            try
             {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                response.Content = new StringContent("{ \"message\": \"Error inserting a new category.\", \"Details\": \"" + errorMessages + "\" }", Encoding.UTF8, "application/json");
-            }
-            else
-            {
-                bool created = false;
-                response.Content = new StringContent(objeto.Content.ReadAsStringAsync().Result, Encoding.UTF8, "application/json");
-
-                Category categoryJSON = JsonConvert.DeserializeObject<Category>(objeto.Content.ReadAsStringAsync().Result);
-                created = categoryServ.Create(categoryJSON);
-
-                if (created == false)
+                Category newCategory = JsonConvert.DeserializeObject<Category>(content);
+                if (categoryService.Create(newCategory))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                    response.Content = new StringContent("{ \"message\": \"There was an error while creating a new category.\" }", Encoding.UTF8, "application/json");
+                    status = HttpStatusCode.Created;
+                    responseMessage = "Category was created successfully";
+                }
+                else
+                {
+                    status = HttpStatusCode.Conflict;
+                    responseMessage = "Failed to create category";
                 }
             }
+            catch (Exception e)
+            {
+                status = HttpStatusCode.BadRequest;
+                responseMessage = "Couldn't convert data to Category object";
 
+            }
+            response = Request.CreateResponse(status);
+            string responseContentJSON = JsonConvert.SerializeObject(new { message = responseMessage });
+            response.Content = new StringContent(responseContentJSON, Encoding.UTF8, "application/json");
             return response;
         }
-
-
 
         [HttpPut]
-        public HttpResponseMessage UpdateInfo(string id, HttpRequestMessage objeto)
+        [Route("api/category/{key}")]
+        public HttpResponseMessage UpdateInfo(string key, HttpRequestMessage request)
         {
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-
-            JSchema schema = JSchema.Parse(schemaJson);
-            JObject category = JObject.Parse(objeto.Content.ReadAsStringAsync().Result);
-            IList<string> errorMessages;
-            bool valid = category.IsValid(schema, out errorMessages);
-
-            if (!valid)
+            string content = request.Content.ReadAsStringAsync().Result;
+            HttpResponseMessage response;
+            HttpStatusCode status;
+            string responseMessage;
+            try
             {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                response.Content = new StringContent("{ \"message\": \"There was an error updating the category with the specified Name.\", \"Details\": \"" + errorMessages + "\" }", Encoding.UTF8, "application/json");
-            }
-            else
-            {
-                bool updated = false;
-                response.Content = new StringContent(objeto.Content.ReadAsStringAsync().Result, Encoding.UTF8, "application/json");
-
-                Category categoryJSON = JsonConvert.DeserializeObject<Category>(objeto.Content.ReadAsStringAsync().Result);
-                updated = categoryServ.Update(id, categoryJSON);
-
-                if (updated == false)
+                Category newCategory = JsonConvert.DeserializeObject<Category>(content);
+                if (categoryService.Update(key, newCategory))
                 {
-                    response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                    response.Content = new StringContent("{ \"message\": \"There was an error updating the category with the specified Name.\" }", Encoding.UTF8, "application/json");
+                    status = HttpStatusCode.Created;
+                    responseMessage = "Category was updated successfully";
+                }
+                else
+                {
+                    status = HttpStatusCode.Conflict;
+                    responseMessage = "Failed to update category";
                 }
             }
+            catch (Exception e)
+            {
+                status = HttpStatusCode.BadRequest;
+                responseMessage = "Couldn't convert data to User object";
 
+            }
+            response = Request.CreateResponse(status);
+            string responseContentJSON = JsonConvert.SerializeObject(new { message = responseMessage });
+            response.Content = new StringContent(responseContentJSON, Encoding.UTF8, "application/json");
             return response;
         }
 
-
-
         [HttpDelete]
-        public HttpResponseMessage DeleteInfo(string id)
+        [Route("api/category/{key}")]
+        public HttpResponseMessage DeleteInfo(string key)
         {
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            bool deleted;
-
-            deleted = categoryServ.Delete(id);
-
-            if (deleted == true)
+            HttpResponseMessage response;
+            HttpStatusCode status;
+            string responseMessage;
+            if (categoryService.Delete(key))
             {
-                response.Content = new StringContent("{ \"Deleted\": \"The Category was successfully deleted.\"}", Encoding.UTF8, "application/json");
+                status = HttpStatusCode.OK;
+                responseMessage = "Category was deleted successfully";
             }
             else
             {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                response.Content = new StringContent("{ \"Error\": \"There was an error looking for a category with the specified Name.\" }", Encoding.UTF8, "application/json");
+                status = HttpStatusCode.BadRequest;
+                responseMessage = "Category does not exist";
             }
-
+            response = Request.CreateResponse(status);
+            string responseMessageJSON = JsonConvert.SerializeObject(new { message = responseMessage });
+            response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json");
             return response;
         }
 
