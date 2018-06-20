@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { UserService } from '../../services/user.service';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -7,12 +10,17 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: UserService) { 
+
+  }
 
   ngOnInit() {
   }
+  
   login(form:NgForm){
-    console.log(form.value);
-
+    this.userService.getUserByUsername(form.value.username).subscribe(
+      data => console.log("Awesome"),
+      err => console.log("Error")
+    );
   }
 }
