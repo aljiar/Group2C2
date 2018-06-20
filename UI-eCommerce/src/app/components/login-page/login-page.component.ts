@@ -17,7 +17,7 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem('username')) {
-      this.router.navigate([''])
+      this.router.navigate(['home'])
     }
   }
   
@@ -30,6 +30,6 @@ export class LoginPageComponent implements OnInit {
 
   login(username: string, data){
     localStorage.setItem('username',username);
-    this.router.navigate([''])
+    this.router.navigate(['home'])
   }
 }
