@@ -46,7 +46,7 @@ namespace WebECommerceAPI.Controllers
             else
             {
                 response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                response.Content = new StringContent("{ \"Error\": \"There was an error looking for a store with the specified ID.\" }", Encoding.UTF8, "application/json");
+                response.Content = new StringContent("{ \"message\": \"There was an error looking for a store with the specified ID.\" }", Encoding.UTF8, "application/json");
             }
 
             return response;
@@ -78,7 +78,7 @@ namespace WebECommerceAPI.Controllers
             if (!valid)
             {
                 response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                response.Content = new StringContent("{ \"Error\": \"Error inserting a new store.\", \"Details\": \"" + errorMessages + "\" }", Encoding.UTF8, "application/json");
+                response.Content = new StringContent("{ \"message\": \"Error inserting a new store.\", \"Details\": \"" + errorMessages + "\" }", Encoding.UTF8, "application/json");
             }
             else
             {
@@ -91,7 +91,7 @@ namespace WebECommerceAPI.Controllers
                 if(created == false)
                 {
                     response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                    response.Content = new StringContent("{ \"Error\": \"There was an error while creating a new store.\" }", Encoding.UTF8, "application/json");
+                    response.Content = new StringContent("{ \"message\": \"There was an error while creating a new store.\" }", Encoding.UTF8, "application/json");
                 }
             }
 
