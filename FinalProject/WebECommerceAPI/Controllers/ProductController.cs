@@ -7,9 +7,11 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace WebECommerceAPI.Controllers
 {
+    [EnableCors(origins: "http://localhost", headers: "*", methods: "*")]
     public class ProductController : ApiController, IController
     {
         StoreManager storeService = new StoreManager();

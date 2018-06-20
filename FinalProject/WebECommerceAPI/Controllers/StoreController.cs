@@ -5,12 +5,14 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace WebECommerceAPI.Controllers
 {
-    public class StoreController : ApiController, IController
+    //[EnableCors(origins: "http://localhost", headers: "*", methods: "*")]
+    /* class StoreController : ApiController, IController
     {
-        StoreManager prodServ = new ProductService();
+        StoreManager prodServ = new StoreManager();
 
         string schemaJson = @"{
                 'description' : 'A Product',
@@ -161,5 +163,5 @@ namespace WebECommerceAPI.Controllers
 
             return response;
         }
-    }
+    }*/
 }
