@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace WebECommerceAPI.Controllers
 {
     [EnableCors(origins: "http://localhost", headers: "*", methods: "*")]
-    public class ShippingAddressController : ApiController
+    public class ShippingAddressController : ApiController, IController
     {
         ShippingAddressManager shippingService = new ShippingAddressManager();
 
@@ -48,7 +48,28 @@ namespace WebECommerceAPI.Controllers
             return res;
         }
 
-
+        [HttpGet]
+        public HttpResponseMessage GetInfo(string id)
+        {
+            HttpResponseMessage response;
+            HttpStatusCode status;
+            string responseMessageJSON;
+            int index = shippingService.getIndexByKey(id);
+            if (index != -1)
+            {
+                status = HttpStatusCode.OK;
+                ShippingAddress shippingAddress = shippingService.Read()[index];
+                responseMessageJSON = JsonConvert.SerializeObject(shippingAddress);
+            }
+            else
+            {
+                status = HttpStatusCode.NotFound;
+                responseMessageJSON = JsonConvert.SerializeObject(new { message = string.Format("Shipping address with id = {0} was not found", id) });
+            }
+            response = Request.CreateResponse(status);
+            response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json"); ;
+            return response;
+        }
 
         [HttpPost]
         public HttpResponseMessage PostInfo(HttpRequestMessage request)
