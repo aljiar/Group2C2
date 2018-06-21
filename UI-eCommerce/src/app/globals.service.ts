@@ -15,9 +15,15 @@ interface Product
     Category : Object
 }
 
+
 interface ResponseObject
 {
     products : Product[]
+}
+
+interface ResponseObject2
+{
+    product : Product
 }
 
 
@@ -32,6 +38,17 @@ export class GlobalService
     {
         const headers = new HttpHeaders()
         .set('Content-Type', 'application/json');
+
         return this.http.get<Product[]>('http://localhost:40097/api/product', {headers:headers});
     }
+  
+   getProduct2() 
+    {
+        const headers = new HttpHeaders()
+        .set('Content-Type', 'application/json');
+
+        return this.http.get<Product>('http://localhost:40097/api/product/id', {headers:headers});
+    }
+  
+  
 }
