@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace FinalProject
 {
-    public class StoreManager : IService, ICRUD<Store>
+    public class StoreService : IService, ICRUD<Store>
     {
         private DB myDB;
 
-        public StoreManager()
+        public StoreService()
         {
             myDB = DB.Instance;
         }

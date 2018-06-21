@@ -14,7 +14,7 @@ namespace WebECommerceAPI.Controllers
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class ProductCartController : ApiController
     {
-        ProductCartManager productCartService = new ProductCartManager();
+        ProductCartService productCartService = new ProductCartService();
 
         [HttpGet]
         [Route("api/productCart/{cartkey}/{key}")]
@@ -23,7 +23,7 @@ namespace WebECommerceAPI.Controllers
             HttpResponseMessage response;
             HttpStatusCode status;
             string responseMessageJSON;
-            CartManager cartManager = new CartManager();
+            CartService cartManager = new CartService();
             int cartIndex = cartManager.getIndexByKey(cartkey);
             if (cartIndex != -1)
             {
@@ -58,7 +58,7 @@ namespace WebECommerceAPI.Controllers
             HttpResponseMessage response;
             HttpStatusCode status;
             string responseMessageJSON;
-            CartManager cartManager = new CartManager();
+            CartService cartManager = new CartService();
             int cartIndex = cartManager.getIndexByKey(cartkey);
             if (cartIndex != -1)
             {
@@ -84,7 +84,7 @@ namespace WebECommerceAPI.Controllers
             HttpResponseMessage response;
             HttpStatusCode status;
             string responseMessage;
-            CartManager cartManager = new CartManager();
+            CartService cartManager = new CartService();
             int cartIndex = cartManager.getIndexByKey(cartkey);
             if (cartIndex != -1)
             {
@@ -130,7 +130,7 @@ namespace WebECommerceAPI.Controllers
             HttpResponseMessage response;
             HttpStatusCode status;
             string responseMessage;
-            CartManager cartManager = new CartManager();
+            CartService cartManager = new CartService();
             int cartIndex = cartManager.getIndexByKey(cartkey);
             if (cartIndex != -1)
             {
@@ -175,7 +175,7 @@ namespace WebECommerceAPI.Controllers
             HttpResponseMessage response;
             HttpStatusCode status;
             string responseMessage;
-            CartManager cartManager = new CartManager();
+            CartService cartManager = new CartService();
             int cartIndex = cartManager.getIndexByKey(cartkey);
             if (cartIndex != -1)
             {

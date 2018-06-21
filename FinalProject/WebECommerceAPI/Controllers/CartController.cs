@@ -14,7 +14,7 @@ namespace WebECommerceAPI.Controllers
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class CartController : ApiController, IController
     {
-        CartManager cartService = new CartManager();
+        CartService cartService = new CartService();
 
         [HttpGet]
         [Route("api/cart/{key}")]

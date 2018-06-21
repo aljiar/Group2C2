@@ -14,7 +14,7 @@ namespace WebECommerceAPI.Controllers
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class UserController : ApiController, IController
     {
-        UserManager userService = new UserManager();
+        UserService userService = new UserService();
 
         [HttpGet]
         [Route("api/user/{key}")]

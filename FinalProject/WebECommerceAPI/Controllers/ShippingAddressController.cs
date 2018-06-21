@@ -14,7 +14,7 @@ namespace WebECommerceAPI.Controllers
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class ShippingAddressController : ApiController, IController
     {
-        ShippingAddressManager shippingService = new ShippingAddressManager();
+        ShippingAddressService shippingService = new ShippingAddressService();
 
 
         [HttpDelete]

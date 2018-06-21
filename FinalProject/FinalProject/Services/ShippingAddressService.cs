@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace FinalProject
 {
-    public class ShippingAddressManager : IService, ICRUD<ShippingAddress>
+    public class ShippingAddressService : IService, ICRUD<ShippingAddress>
     {
         private DB myDB;
 
-        public ShippingAddressManager()
+        public ShippingAddressService()
         {
             myDB = DB.Instance;
         }

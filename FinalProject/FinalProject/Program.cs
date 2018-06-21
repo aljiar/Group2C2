@@ -23,7 +23,7 @@ namespace FinalProject
         public static void CRUDProductCarts()
         {
             Cart cart = new Cart(new List<ProductCart>(), "maria");
-            ProductCartManager manager = new ProductCartManager();
+            ProductCartService manager = new ProductCartService();
             manager.setCart(cart);
             Product prod1 = new Product() { Code = "001", Name = "TV", Price = 10, Description = "Flat screen" };
             Product prod2 = new Product() { Code = "002", Name = "Radio", Price = 10, Description = "New radio" };
@@ -49,7 +49,7 @@ namespace FinalProject
 
         public static void CRUDUsers()
         {
-            ShippingAddressManager manager = new ShippingAddressManager();
+            ShippingAddressService manager = new ShippingAddressService();
             ShippingAddress shippingAddress1 = new ShippingAddress("01", "line1", "line2", 123, "La Paz", "Zona 1");
             ShippingAddress shippingAddress2 = new ShippingAddress("02", "line1", "line2", 123, "La Paz", "Zona 1");
             ShippingAddress shippingAddress3 = new ShippingAddress("01", "line1", "line2", 123, "La Paz", "Zona 1");
@@ -68,7 +68,7 @@ namespace FinalProject
             //read
             show<ShippingAddress>(manager.Read());
           
-            StoreManager manager1 = new StoreManager();
+            StoreService manager1 = new StoreService();
             Store store1 = new Store("Tienda1", "line1", "line2", 123);
             Store store2 = new Store("Tienda2", "line1", "line2", 123);
             Store store3 = new Store("Tienda1", "line1", "line2", 123);
@@ -87,7 +87,7 @@ namespace FinalProject
             //read
             show<Store>(manager1.Read());
             List<ShippingAddress> list = new List<ShippingAddress>();
-            UserManager manager2 = new UserManager();
+            UserService manager2 = new UserService();
             User user1 = new User("max", "pass", "Max", "Mendez", list);
             User user2 = new User("cam", "pass", "Camila", "Mendez", list);
             User user3 = new User("pedro", "pass", "Pedro", "Mendez", list);
@@ -111,7 +111,7 @@ namespace FinalProject
 
         public static void CRUDCarts()
         {
-            CartManager manager = new CartManager();
+            CartService manager = new CartService();
             Cart cart1 = new Cart(new List<ProductCart>(), "maria");
             Cart cart2 = new Cart(new List<ProductCart>(), "max");
             Cart cart3 = new Cart(new List<ProductCart>(), "cam");

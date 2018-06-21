@@ -14,7 +14,7 @@ namespace WebECommerceAPI.Controllers
     [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     class StoreController : ApiController, IController
     {
-        StoreManager storeService = new StoreManager();
+        StoreService storeService = new StoreService();
 
         [HttpGet]
         [Route("api/store/{key}")]

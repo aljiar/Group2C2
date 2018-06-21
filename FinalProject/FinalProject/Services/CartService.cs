@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace FinalProject
 {
-    public class CartManager : IService, ICRUD<Cart>
+    public class CartService : IService, ICRUD<Cart>
     {
         private DB myDB;
 
-        public CartManager()
+        public CartService()
         {
             myDB = DB.Instance;
         }
@@ -22,7 +22,7 @@ namespace FinalProject
 
         public bool Create(Cart newCart)
         {
-            UserManager manager = new UserManager();
+            UserService manager = new UserService();
             if (!checkIfExists(newCart.Username) && manager.checkIfExists(newCart.Username))
             {
                 myDB.Carts.Add(newCart);
