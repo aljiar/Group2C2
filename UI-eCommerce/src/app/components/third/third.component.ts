@@ -7,15 +7,15 @@ import { ProductService } from "../../services/product.service";
   styleUrls: ['./third.component.scss'],
   providers: [ProductService]
 })
-export class THIRDComponent implements OnInit {
+export class ThirdComponent implements OnInit {
 
   product;
 
   constructor(private service: ProductService) { }
 
   ngOnInit() {
-    this.service.getProduct2().subscribe(data => {
-      this.product = data.product;
+    this.service.getProduct().subscribe(data => {
+      this.product = data;
     })
   }
 
