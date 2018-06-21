@@ -39,7 +39,7 @@ export class GlobalService
         const headers = new HttpHeaders()
         .set('Content-Type', 'application/json');
 
-        return this.http.get<ResponseObject>('http://localhost:40097/api/product', {headers:headers});
+        return this.http.get<Product[]>('http://localhost:40097/api/product', {headers:headers});
     }
   
    getProduct2() 
@@ -47,7 +47,7 @@ export class GlobalService
         const headers = new HttpHeaders()
         .set('Content-Type', 'application/json');
 
-        return this.http.get<ResponseObject2>('http://localhost:40097/api/product/id', {headers:headers});
+        return this.http.get<Product>('http://localhost:40097/api/product/id', {headers:headers});
     }
   
   
