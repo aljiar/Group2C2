@@ -9,13 +9,13 @@ import { GlobalService } from "../../globals.service";
 })
 export class ThirdComponent implements OnInit {
 
-  products = [];
+  product;
 
   constructor(private service: GlobalService) { }
 
   ngOnInit() {
     this.service.getProduct().subscribe(data => {
-      this.products = data;
+      this.product = data;
     })
   }
 
