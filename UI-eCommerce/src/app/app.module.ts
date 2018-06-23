@@ -9,13 +9,17 @@ import { ThirdComponent } from './components/third/third.component';
 import { SecondPageComponent } from './components/second-page/second-page.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './components/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ThirdComponent,
     SecondPageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    HomeComponent,
+    NavbarComponent
   ],
   imports: [
     FormsModule,
