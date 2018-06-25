@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Observable } from 'rxjs';
-import {Router} from '@angular/router'; 
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-login-page',
@@ -17,7 +17,7 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem('username')) {
-      this.router.navigate(['secondPage'])
+      this.router.navigate(['home/products'])
     }
   }
   
@@ -30,6 +30,6 @@ export class LoginPageComponent implements OnInit {
 
   login(username: string, data){
     localStorage.setItem('username',username);
-    this.router.navigate(['secondPage'])
+    this.router.navigate(['home/products'])
   }
 }
