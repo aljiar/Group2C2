@@ -5,8 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ThirdComponent } from './components/third/third.component';
-import { SecondPageComponent } from './components/second-page/second-page.component';
+import { ProductDescriptionComponent } from './components/product-description/product-description.component';
+import { ProductsComponent } from './components/products/products.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
@@ -15,8 +15,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ThirdComponent,
-    SecondPageComponent,
+    ProductDescriptionComponent,
+    ProductsComponent,
     LoginPageComponent,
     HomeComponent,
     NavbarComponent

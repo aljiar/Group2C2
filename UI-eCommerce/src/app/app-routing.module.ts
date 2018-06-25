@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginPageComponent } from './components/login-page/login-page.component';
-import { SecondPageComponent } from './components/second-page/second-page.component';
-import { ThirdComponent } from './components/third/third.component';
+import { ProductsComponent } from './components/products/products.component';
+import { ProductDescriptionComponent } from './components/product-description/product-description.component';
 import { HomeComponent } from './components/home/home.component';
 import { combineLatest } from 'rxjs';
 
@@ -15,11 +15,11 @@ const routes: Routes = [
     children: [
       {
         path: 'products',
-        component: SecondPageComponent
+        component: ProductsComponent
       },
       {
         path: 'productDescription',
-        component: ThirdComponent
+        component: ProductDescriptionComponent
       }
     ]
   }
