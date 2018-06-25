@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +12,7 @@ export class NavbarComponent implements OnInit {
   username: string
   name: string
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router:Router) { }
 
   ngOnInit() {
     this.username = localStorage.getItem('username')
@@ -19,6 +20,10 @@ export class NavbarComponent implements OnInit {
       data => this.name = data.Name + " "+ data.LastName,
       error => console.error(error)
     );
+  }
+
+  goToCart() {
+    this.router.navigate(['/cart'])
   }
 
 }
