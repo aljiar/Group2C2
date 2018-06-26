@@ -12,7 +12,8 @@ export class HomeComponent implements OnInit {
   constructor(private userService: UserService, private router:Router) { }
 
   ngOnInit() {
-    if (!localStorage.getItem('username')) {
+    var username = this.userService.getCurrentUsername()
+    if (username == null || username == undefined) {
       this.router.navigate(['login'])
     }
   }

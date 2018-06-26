@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   constructor(private userService: UserService, private router:Router) { }
 
   ngOnInit() {
-    this.username = localStorage.getItem('username')
+    this.username = this.userService.getCurrentUsername()
     this.userService.getUserByUsername(this.username).subscribe(
       data => this.name = data.Name + " "+ data.LastName,
       error => console.error(error)

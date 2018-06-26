@@ -31,11 +31,11 @@ export class ProductService
         return this.http.get<Product[]>('http://localhost:40097/api/product', {headers:headers});
     }
   
-   getProduct2() 
+   getProduct2(id) 
     {
         const headers = new HttpHeaders()
         .set('Content-Type', 'application/json');
 
-        return this.http.get<Product>('http://localhost:40097/api/product/id', {headers:headers});
+        return this.http.get<Product>('http://localhost:40097/api/product/' + id, {headers:headers});
     }
 }
