@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ProductService } from "../../services/product.service";
 import { ActivatedRoute } from "@angular/router";
-import { Location } from "@angular/common";
+import { ProductCartService } from '../../services/product-cart.service';
+import { UserService } from '../../services/user.service';
+import { Product } from '../../models/product';
 
 @Component({
   selector: 'app-product-description',
@@ -11,16 +13,31 @@ import { Location } from "@angular/common";
 })
 export class ProductDescriptionComponent implements OnInit {
 
-  product;
-  id: string;
+  product: Product
+  username: string
 
-  constructor(private service: ProductService, private route: ActivatedRoute, private location: Location) { }
+  constructor(private productService: ProductService, private productCartService: ProductCartService, private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.service.getProduct2(this.id).subscribe(data => {
+    var id = this.route.snapshot.paramMap.get('id');
+    this.username = this.userService.getCurrentUsername();
+    this.productService.getProduct2(id).subscribe(data => {
       this.product = data;
     })
   }
 
+  addToCart() {
+    var productCart = {
+      ProductCode: this.product.Code,
+      SelectedDelivery: this.product.ShippingDeliveryType,
+      Store: { Name: "Everything you need", Line1: "Av. Store", Line2: "Store Av", Phone: 123456}, //fake store
+      Quantity: 1
+    }
+    this.productCartService.createProductCart(this.username, productCart).subscribe(
+      data => {
+        console.log(data)
+      },
+      err => console.log(err)
+    )
+  }
 }
