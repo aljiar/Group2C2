@@ -13,8 +13,8 @@ namespace FinalProject
         public string ProductCode { get; set; }
         [JsonProperty(Required = Required.Always)]
         public string SelectedDelivery { get; set; }
-        [JsonProperty(Required = Required.Always)]
-        private Store Store { get; set; }
+        //[JsonProperty(Required = Required.Always)]
+        public Store Store { get; set; }
         [JsonProperty(Required = Required.Always)]
         public int Quantity { get; set; }
 

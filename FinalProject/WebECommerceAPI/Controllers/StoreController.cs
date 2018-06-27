@@ -58,30 +58,29 @@ namespace WebECommerceAPI.Controllers
             string content = request.Content.ReadAsStringAsync().Result;
             HttpResponseMessage response;
             HttpStatusCode status;
-            string responseMessage;
+            string responseMessageJSON;
             try
             {
                 Store newStore = JsonConvert.DeserializeObject<Store>(content);
                 if (storeService.Create(newStore))
                 {
                     status = HttpStatusCode.Created;
-                    responseMessage = "Store was created successfully";
+                    responseMessageJSON = JsonConvert.SerializeObject(newStore);
                 }
                 else
                 {
                     status = HttpStatusCode.Conflict;
-                    responseMessage = "Failed to create store";
+                    responseMessageJSON = JsonConvert.SerializeObject(new { message = "Failed to create store" });
                 }
             }
             catch (Exception e)
             {
                 status = HttpStatusCode.BadRequest;
-                responseMessage = "Couldn't convert data to Store object";
+                responseMessageJSON = JsonConvert.SerializeObject(new { message = "Couldn't convert data to Store object" });
 
             }
             response = Request.CreateResponse(status);
-            string responseContentJSON = JsonConvert.SerializeObject(new { message = responseMessage });
-            response.Content = new StringContent(responseContentJSON, Encoding.UTF8, "application/json");
+            response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json");
             return response;
         }
 
@@ -92,30 +91,29 @@ namespace WebECommerceAPI.Controllers
             string content = request.Content.ReadAsStringAsync().Result;
             HttpResponseMessage response;
             HttpStatusCode status;
-            string responseMessage;
+            string responseMessageJSON;
             try
             {
                 Store newStore = JsonConvert.DeserializeObject<Store>(content);
                 if (storeService.Update(key, newStore))
                 {
                     status = HttpStatusCode.Created;
-                    responseMessage = "Store was updated successfully";
+                    responseMessageJSON = JsonConvert.SerializeObject(newStore);
                 }
                 else
                 {
                     status = HttpStatusCode.Conflict;
-                    responseMessage = "Failed to update store";
+                    responseMessageJSON = JsonConvert.SerializeObject(new { message = "Failed to update store" });
                 }
             }
             catch (Exception e)
             {
                 status = HttpStatusCode.BadRequest;
-                responseMessage = "Couldn't convert data to Store object";
+                responseMessageJSON = JsonConvert.SerializeObject(new { message = "Couldn't convert data to Store object" });
 
             }
             response = Request.CreateResponse(status);
-            string responseContentJSON = JsonConvert.SerializeObject(new { message = responseMessage });
-            response.Content = new StringContent(responseContentJSON, Encoding.UTF8, "application/json");
+            response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json");
             return response;
         }
 

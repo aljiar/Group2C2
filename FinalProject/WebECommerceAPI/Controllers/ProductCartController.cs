@@ -83,7 +83,7 @@ namespace WebECommerceAPI.Controllers
         {
             HttpResponseMessage response;
             HttpStatusCode status;
-            string responseMessage;
+            string responseMessageJSON;
             CartService cartManager = new CartService();
             int cartIndex = cartManager.getIndexByKey(cartkey);
             if (cartIndex != -1)
@@ -96,29 +96,27 @@ namespace WebECommerceAPI.Controllers
                     if (productCartService.Create(newProductCart))
                     {
                         status = HttpStatusCode.Created;
-                        responseMessage = "Product cart was created successfully";
+                        responseMessageJSON = JsonConvert.SerializeObject(newProductCart);
                     }
                     else
                     {
                         status = HttpStatusCode.Conflict;
-                        responseMessage = "Failed to create product cart";
+                        responseMessageJSON = JsonConvert.SerializeObject(new { message = "Failed to create product cart" });
                     }
                 }
                 catch (Exception e)
                 {
                     status = HttpStatusCode.BadRequest;
-                    responseMessage = "Couldn't convert data to ProductCart object";
-
+                    responseMessageJSON = JsonConvert.SerializeObject(new { message = "Couldn't convert data to ProductCart object" });
                 }
             }
             else
             {
                 status = HttpStatusCode.NotFound;
-                responseMessage = string.Format("Cart with id = {0} was not found", cartkey);
+                responseMessageJSON = JsonConvert.SerializeObject(new { message = string.Format("Cart with id = {0} was not found", cartkey) });
             }
             response = Request.CreateResponse(status);
-            string responseContentJSON = JsonConvert.SerializeObject(new { message = responseMessage });
-            response.Content = new StringContent(responseContentJSON, Encoding.UTF8, "application/json");
+            response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json");
             return response;
         }
 
@@ -129,7 +127,7 @@ namespace WebECommerceAPI.Controllers
             
             HttpResponseMessage response;
             HttpStatusCode status;
-            string responseMessage;
+            string responseMessageJSON;
             CartService cartManager = new CartService();
             int cartIndex = cartManager.getIndexByKey(cartkey);
             if (cartIndex != -1)
@@ -142,29 +140,27 @@ namespace WebECommerceAPI.Controllers
                     if (productCartService.Update(id, newProductCart))
                     {
                         status = HttpStatusCode.Created;
-                        responseMessage = "ProductCart was updated successfully";
+                        responseMessageJSON = JsonConvert.SerializeObject(newProductCart);
                     }
                     else
                     {
                         status = HttpStatusCode.Conflict;
-                        responseMessage = "Failed to update product cart";
+                        responseMessageJSON = JsonConvert.SerializeObject(new { message = "Failed to update product cart" });
                     }
                 }
                 catch (Exception e)
                 {
                     status = HttpStatusCode.BadRequest;
-                    responseMessage = "Couldn't convert data to ProductCart object";
-
+                    responseMessageJSON = JsonConvert.SerializeObject(new { message = "Couldn't convert data to ProductCart object" });
                 }
             }
             else
             {
                 status = HttpStatusCode.NotFound;
-                responseMessage = string.Format("Cart with id = {0} was not found", cartkey);
+                responseMessageJSON = JsonConvert.SerializeObject(new { message = string.Format("Cart with id = {0} was not found", cartkey) });
             }
             response = Request.CreateResponse(status);
-            string responseContentJSON = JsonConvert.SerializeObject(new { message = responseMessage });
-            response.Content = new StringContent(responseContentJSON, Encoding.UTF8, "application/json");
+            response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json");
             return response;
         }
 

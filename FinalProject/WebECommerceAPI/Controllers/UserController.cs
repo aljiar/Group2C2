@@ -58,30 +58,29 @@ namespace WebECommerceAPI.Controllers
             string content = request.Content.ReadAsStringAsync().Result;
             HttpResponseMessage response;
             HttpStatusCode status;
-            string responseMessage;
+            string responseMessageJSON;
             try
             {
                 User newUser = JsonConvert.DeserializeObject<User>(content);
                 if (userService.Create(newUser))
                 {
                     status = HttpStatusCode.Created;
-                    responseMessage = "User was created successfully";
+                    responseMessageJSON = JsonConvert.SerializeObject(newUser);
                 }
                 else
                 {
                     status = HttpStatusCode.Conflict;
-                    responseMessage = "Failed to create user";
+                    responseMessageJSON = JsonConvert.SerializeObject(new { message = "Failed to create user" });
                 }
             }
             catch (Exception e)
             {
                 status = HttpStatusCode.BadRequest;
-                responseMessage = "Couldn't convert data to User object";
+                responseMessageJSON = JsonConvert.SerializeObject(new { message = "Couldn't convert data to User object" });
 
             }
             response = Request.CreateResponse(status);
-            string responseContentJSON = JsonConvert.SerializeObject(new { message = responseMessage });
-            response.Content = new StringContent(responseContentJSON, Encoding.UTF8, "application/json");
+            response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json");
             return response;
         }
 
@@ -92,30 +91,29 @@ namespace WebECommerceAPI.Controllers
             string content = request.Content.ReadAsStringAsync().Result;
             HttpResponseMessage response;
             HttpStatusCode status;
-            string responseMessage;
+            string responseMessageJSON;
             try
             {
                 User newUser = JsonConvert.DeserializeObject<User>(content);
                 if (userService.Update(key, newUser))
                 {
                     status = HttpStatusCode.Created;
-                    responseMessage = "User was updated successfully";
+                    responseMessageJSON = JsonConvert.SerializeObject(newUser);
                 }
                 else
                 {
                     status = HttpStatusCode.Conflict;
-                    responseMessage = "Failed to update user";
+                    responseMessageJSON = JsonConvert.SerializeObject(new { message = "Failed to update user" });
                 }
             }
             catch (Exception e)
             {
                 status = HttpStatusCode.BadRequest;
-                responseMessage = "Couldn't convert data to User object";
+                responseMessageJSON = JsonConvert.SerializeObject(new { message = "Couldn't convert data to User object" });
 
             }
             response = Request.CreateResponse(status);
-            string responseContentJSON = JsonConvert.SerializeObject(new { message = responseMessage });
-            response.Content = new StringContent(responseContentJSON, Encoding.UTF8, "application/json");
+            response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json");
             return response;
         }
 

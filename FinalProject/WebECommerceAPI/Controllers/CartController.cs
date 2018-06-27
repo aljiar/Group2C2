@@ -58,30 +58,29 @@ namespace WebECommerceAPI.Controllers
             string content = request.Content.ReadAsStringAsync().Result;
             HttpResponseMessage response;
             HttpStatusCode status;
-            string responseMessage;
+            string responseMessageJSON;
             try
             {
                 Cart newCart = JsonConvert.DeserializeObject<Cart>(content);
                 if (cartService.Create(newCart))
                 {
                     status = HttpStatusCode.Created;
-                    responseMessage = "Cart was created successfully";
+                    responseMessageJSON = JsonConvert.SerializeObject(newCart);
                 }
                 else
                 {
                     status = HttpStatusCode.Conflict;
-                    responseMessage = "Failed to create cart";
+                    responseMessageJSON = JsonConvert.SerializeObject(new { message = "Failed to create cart" });
                 }
             }
             catch (Exception e)
             {
                 status = HttpStatusCode.BadRequest;
-                responseMessage = "Couldn't convert data to Cart object";
+                responseMessageJSON = JsonConvert.SerializeObject(new { message = "Couldn't convert data to Cart object" });
 
             }
             response = Request.CreateResponse(status);
-            string responseContentJSON = JsonConvert.SerializeObject(new { message = responseMessage });
-            response.Content = new StringContent(responseContentJSON, Encoding.UTF8, "application/json");
+            response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json");
             return response;
         }
 
@@ -92,30 +91,29 @@ namespace WebECommerceAPI.Controllers
             string content = request.Content.ReadAsStringAsync().Result;
             HttpResponseMessage response;
             HttpStatusCode status;
-            string responseMessage;
+            string responseMessageJSON;
             try
             {
                 Cart newCart = JsonConvert.DeserializeObject<Cart>(content);
                 if (cartService.Update(id, newCart))
                 {
                     status = HttpStatusCode.Created;
-                    responseMessage = "Cart was updated successfully";
+                    responseMessageJSON = JsonConvert.SerializeObject(newCart);
                 }
                 else
                 {
                     status = HttpStatusCode.Conflict;
-                    responseMessage = "Failed to update cart";
+                    responseMessageJSON = JsonConvert.SerializeObject(new { message = "Failed to update cart" });
                 }
             }
             catch (Exception e)
             {
                 status = HttpStatusCode.BadRequest;
-                responseMessage = "Couldn't convert data to Cart object";
+                responseMessageJSON = JsonConvert.SerializeObject(new { message = "Couldn't convert data to Cart object" });
 
             }
             response = Request.CreateResponse(status);
-            string responseContentJSON = JsonConvert.SerializeObject(new { message = responseMessage });
-            response.Content = new StringContent(responseContentJSON, Encoding.UTF8, "application/json");
+            response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json");
             return response;
         }
 

@@ -59,30 +59,29 @@ namespace WebECommerceAPI.Controllers
             string content = request.Content.ReadAsStringAsync().Result;
             HttpResponseMessage response;
             HttpStatusCode status;
-            string responseMessage;
+            string responseMessageJSON;
             try
             {
                 Category newCategory = JsonConvert.DeserializeObject<Category>(content);
                 if (categoryService.Create(newCategory))
                 {
                     status = HttpStatusCode.Created;
-                    responseMessage = "Category was created successfully";
+                    responseMessageJSON = JsonConvert.SerializeObject(newCategory);
                 }
                 else
                 {
                     status = HttpStatusCode.Conflict;
-                    responseMessage = "Failed to create category";
+                    responseMessageJSON = JsonConvert.SerializeObject(new { message = "Failed to create category" });
                 }
             }
             catch (Exception e)
             {
                 status = HttpStatusCode.BadRequest;
-                responseMessage = "Couldn't convert data to Category object";
+                responseMessageJSON = JsonConvert.SerializeObject(new { message = "Couldn't convert data to Category object" });
 
             }
             response = Request.CreateResponse(status);
-            string responseContentJSON = JsonConvert.SerializeObject(new { message = responseMessage });
-            response.Content = new StringContent(responseContentJSON, Encoding.UTF8, "application/json");
+            response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json");
             return response;
         }
 
@@ -93,30 +92,29 @@ namespace WebECommerceAPI.Controllers
             string content = request.Content.ReadAsStringAsync().Result;
             HttpResponseMessage response;
             HttpStatusCode status;
-            string responseMessage;
+            string responseMessageJSON;
             try
             {
                 Category newCategory = JsonConvert.DeserializeObject<Category>(content);
                 if (categoryService.Update(key, newCategory))
                 {
                     status = HttpStatusCode.Created;
-                    responseMessage = "Category was updated successfully";
+                    responseMessageJSON = JsonConvert.SerializeObject(newCategory);
                 }
                 else
                 {
                     status = HttpStatusCode.Conflict;
-                    responseMessage = "Failed to update category";
+                    responseMessageJSON = JsonConvert.SerializeObject(new { message = "Failed to update category" });
                 }
             }
             catch (Exception e)
             {
                 status = HttpStatusCode.BadRequest;
-                responseMessage = "Couldn't convert data to User object";
+                responseMessageJSON = JsonConvert.SerializeObject(new { message = "Couldn't convert data to Category object" });
 
             }
             response = Request.CreateResponse(status);
-            string responseContentJSON = JsonConvert.SerializeObject(new { message = responseMessage });
-            response.Content = new StringContent(responseContentJSON, Encoding.UTF8, "application/json");
+            response.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json");
             return response;
         }
 

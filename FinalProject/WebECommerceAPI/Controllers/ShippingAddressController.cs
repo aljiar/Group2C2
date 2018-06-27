@@ -77,30 +77,29 @@ namespace WebECommerceAPI.Controllers
             string content = request.Content.ReadAsStringAsync().Result;
             HttpResponseMessage res;
             HttpStatusCode status;
-            string responseMessage;
+            string responseMessageJSON;
             try
             {
                 ShippingAddress newShippingAddress = JsonConvert.DeserializeObject<ShippingAddress>(content);
                 if (shippingService.Create(newShippingAddress))
                 {
                     status = HttpStatusCode.Created;
-                    responseMessage = "Address was created successfully";
+                    responseMessageJSON = JsonConvert.SerializeObject(newShippingAddress);
                 }
                 else
                 {
                     status = HttpStatusCode.Conflict;
-                    responseMessage = "Failed to create";
+                    responseMessageJSON = JsonConvert.SerializeObject(new { message = "Failed to create" });
                 }
             }
             catch (Exception e)
             {
                 status = HttpStatusCode.BadRequest;
-                responseMessage = "Couldn't convert data to Shipping address object";
+                responseMessageJSON = JsonConvert.SerializeObject(new { message = "Couldn't convert data to Shipping address object" });
 
             }
             res = Request.CreateResponse(status);
-            string responseContentJSON = JsonConvert.SerializeObject(new { message = responseMessage });
-            res.Content = new StringContent(responseContentJSON, Encoding.UTF8, "application/json");
+            res.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json");
             return res;
 
 
@@ -112,30 +111,29 @@ namespace WebECommerceAPI.Controllers
             string content = request.Content.ReadAsStringAsync().Result;
             HttpResponseMessage res;
             HttpStatusCode status;
-            string responseMessage;
+            string responseMessageJSON;
             try
             {
                 ShippingAddress newShippingAddress = JsonConvert.DeserializeObject<ShippingAddress>(content);
                 if (shippingService.Update(id, newShippingAddress))
                 {
                     status = HttpStatusCode.Created;
-                    responseMessage = "Shipping address was updated successfully";
+                    responseMessageJSON = JsonConvert.SerializeObject(newShippingAddress);
                 }
                 else
                 {
                     status = HttpStatusCode.Conflict;
-                    responseMessage = "Failed to update shipping address";
+                    responseMessageJSON = JsonConvert.SerializeObject(new { message = "Failed to update shipping address" });
                 }
             }
             catch (Exception e)
             {
                 status = HttpStatusCode.BadRequest;
-                responseMessage = "Couldn't convert data to Shipping address object";
+                responseMessageJSON = JsonConvert.SerializeObject(new { message = "Couldn't convert data to Shipping address object" });
 
             }
             res = Request.CreateResponse(status);
-            string responseContentJSON = JsonConvert.SerializeObject(new { message = responseMessage });
-            res.Content = new StringContent(responseContentJSON, Encoding.UTF8, "application/json");
+            res.Content = new StringContent(responseMessageJSON, Encoding.UTF8, "application/json");
             return res;
         }
     }
