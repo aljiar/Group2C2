@@ -15,7 +15,7 @@ export class CartService {
   }
 
   updateCart(id: string, cart: Cart) {
-
+    return this.http.put<Cart>('http://localhost:40097/api/cart/' + id, cart)
   }
 
   createCart(cart: Cart) {

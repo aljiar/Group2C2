@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
       error => {
         if (error.status == 404)
         {
-          var cart: Cart = { Username: this.username, ListProductCart: []}
+          var cart: Cart = { Username: this.username, ListProductCart: [], Dispatched: false}
           this.cartService.createCart(cart).subscribe(
             data => console.log(data),
             error => console.log(error)
