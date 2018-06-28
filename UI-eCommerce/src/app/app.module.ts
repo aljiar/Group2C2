@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { GlobalService } from "./globals.service";
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +27,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    AngularFontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router'; 
 
@@ -11,7 +11,7 @@ export class NavbarComponent implements OnInit {
 
   username: string
   name: string
-  numberOfProducts: number
+  @Input() numberOfProducts: number
 
   constructor(private userService: UserService, private router:Router) { }
 
