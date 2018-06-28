@@ -9,9 +9,7 @@ import { User } from '../models/user';
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { 
-
-  }
+  constructor(private http: HttpClient) { }
 
   getUserByUsername(username:string) {
     return this.http.get<User>('http://localhost:40097/api/user/'+username)
@@ -23,5 +21,9 @@ export class UserService {
 
   setCurrentUsername(username:string) {
     localStorage.setItem('username', username)
+  }
+
+  logout() {
+    localStorage.removeItem('username')
   }
 }

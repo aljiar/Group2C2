@@ -1,9 +1,10 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductService } from "../../services/product.service";
 import { ActivatedRoute } from "@angular/router";
 import { ProductCartService } from '../../services/product-cart.service';
 import { UserService } from '../../services/user.service';
 import { Product } from '../../models/product';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-product-description',
@@ -16,7 +17,7 @@ export class ProductDescriptionComponent implements OnInit {
   product: Product
   username: string
 
-  constructor(private productService: ProductService, private productCartService: ProductCartService, private userService: UserService, private route: ActivatedRoute) { }
+  constructor(private productService: ProductService, private productCartService: ProductCartService, private userService: UserService, private dataService: DataService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     var id = this.route.snapshot.paramMap.get('id');
@@ -36,6 +37,7 @@ export class ProductDescriptionComponent implements OnInit {
     this.productCartService.createProductCart(this.username, productCart).subscribe(
       data => {
         console.log(data)
+        this.dataService.updateData()
       },
       err => console.log(err)
     )
