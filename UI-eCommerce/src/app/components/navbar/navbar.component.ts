@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-navbar',
@@ -10,15 +11,15 @@ export class NavbarComponent implements OnInit {
 
   username: string
   name: string
+  numberOfProducts: number
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router:Router) { }
 
   ngOnInit() {
-    this.username = localStorage.getItem('username')
+    this.username = this.userService.getCurrentUsername()
     this.userService.getUserByUsername(this.username).subscribe(
-      data => this.name = data.Name + " "+ data.LastName,
+      data => this.name = data.Name + " " + data.LastName,
       error => console.error(error)
     );
   }
-
 }
