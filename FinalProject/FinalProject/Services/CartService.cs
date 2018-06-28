@@ -17,7 +17,7 @@ namespace FinalProject
 
         public bool checkIfExists(string username)
         {
-            return myDB.Carts.Exists((x => x.Username == username));
+            return myDB.Carts.Exists(x => (x.Username == username && !x.Dispatched));
         }
 
         public bool Create(Cart newCart)
@@ -46,9 +46,14 @@ namespace FinalProject
             return false;
         }
 
+        public List<Cart> GetDispatchedCarts(string username)
+        {
+            return myDB.Carts.Where(x => (x.Username == username && x.Dispatched)).ToList();
+        }
+
         public int getIndexByKey(string key)
         {
-            return myDB.Carts.FindIndex(x => x.Username == key);
+            return myDB.Carts.FindIndex(x => x.Username == key && !x.Dispatched);
         }
 
         public List<Cart> Read()

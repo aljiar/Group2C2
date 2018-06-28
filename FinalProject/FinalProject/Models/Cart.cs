@@ -13,11 +13,14 @@ namespace FinalProject
         public List<ProductCart> ListProductCart { get; set; }
         [JsonProperty(Required = Required.Always)]
         public String Username { get; set; }
+        [JsonProperty(Required = Required.Always)]
+        public bool Dispatched { get; set; }
 
         public Cart(List<ProductCart> list, string username)
         {
             Username = username;
             ListProductCart = list;
+            Dispatched = false;
         }
 
         public override string ToString()

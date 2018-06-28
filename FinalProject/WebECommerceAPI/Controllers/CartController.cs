@@ -51,6 +51,17 @@ namespace WebECommerceAPI.Controllers
             return response;
         }
 
+        [HttpGet]
+        [Route("api/cart/dispatched/{key}")]
+        public HttpResponseMessage GetDispatchedCarts(string key)
+        {
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+            List<Cart> carts = cartService.GetDispatchedCarts(key);
+            string cartsJSON = JsonConvert.SerializeObject(carts, Formatting.Indented);
+            response.Content = new StringContent(cartsJSON, Encoding.UTF8, "application/json");
+            return response;
+        }
+
         [HttpPost]
         [Route("api/cart")]
         public HttpResponseMessage PostInfo(HttpRequestMessage request)
