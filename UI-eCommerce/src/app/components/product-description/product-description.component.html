@@ -1,0 +1,18 @@
+<div class="py-5">
+  <div class="container">
+    <div class="row" *ngIf="product">
+      <div class="col-md-6">
+        <img class="img-fluid d-block mx-auto px-0" src="{{product.imageURL}}" width="450">
+      </div>
+      <div class="col-md-6">
+        <h1 class="text-secondary">{{product.Name}}</h1>
+        <p class="lead">Category: {{product.Category.Name}}</p>
+        <p class="lead text-danger">Price: {{product.Price}}</p>
+        <ul class="">
+          <li>Description: {{product.Description}}</li>
+        </ul>
+        <a class="btn btn-outline-primary w-50 text-primary" (click)="addToCart()">AGREGAR A CARRO</a>
+      </div>
+    </div>
+  </div>
+</div>
