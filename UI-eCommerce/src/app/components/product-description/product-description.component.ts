@@ -32,12 +32,12 @@ export class ProductDescriptionComponent implements OnInit {
       ProductCode: this.product.Code,
       SelectedDelivery: this.product.ShippingDeliveryType,
       Store: { Name: "Everything you need", Line1: "Av. Store", Line2: "Store Av", Phone: 123456}, //fake store
-      Quantity: 1
+      Quantity: 0
     }
     this.productCartService.createProductCart(this.username, productCart).subscribe(
       data => {
         console.log(data)
-        this.dataService.updateData()
+        this.dataService.updateData(1)
       },
       err => console.log(err)
     )
