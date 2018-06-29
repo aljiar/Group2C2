@@ -23,6 +23,10 @@ export class HomeComponent implements OnInit {
       number => {
         this.numberOfProducts += number;
     })
+    dataService.reset$.subscribe(
+      number => {
+        this.numberOfProducts = 0;
+    })
   }
 
   ngOnInit() {

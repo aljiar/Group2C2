@@ -5,5 +5,5 @@ export class User {
   Name: string
   LastName: string
   Password: string
-  Shippingaddresseslist: ShippingAddress[]
+  ShippingAddressesList: ShippingAddress[]
 }
