@@ -5,6 +5,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { ProductDescriptionComponent } from './components/product-description/product-description.component';
 import { HomeComponent } from './components/home/home.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { AddressComponent } from './components/address/address.component';
 import { combineLatest } from 'rxjs';
 
 const routes: Routes = [
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: 'cart',
         component: ShoppingCartComponent
+      },
+      {
+        path: 'address',
+        component: AddressComponent
       }
     ]
   }

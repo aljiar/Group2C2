@@ -15,6 +15,10 @@ export class UserService {
     return this.http.get<User>('http://localhost:40097/api/user/'+username)
   }
 
+  updateUserById(username: string, user: User) {
+    return this.http.put<User>('http://localhost:40097/api/user/'+username, user)
+  }
+
   getCurrentUsername() {
     return localStorage.getItem('username')
   }
