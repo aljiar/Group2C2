@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from "../../services/product.service";
+import { Product} from "../../models/product";
 
 @Component({
   selector: 'app-producs',
@@ -10,7 +11,7 @@ import { ProductService } from "../../services/product.service";
 
 export class ProductsComponent implements OnInit {
 
-  products = [
+  products: Product /*[
       {  
         "Code" : "peraphone_xi", 
         "Name" : "Peraphone XI", 
@@ -51,7 +52,7 @@ export class ProductsComponent implements OnInit {
       "imageURL" : "https://http2.mlstatic.com/S_711702-MCO26579003759_122017-O.jpg",
       "Type" : "Digital"
   }
-  ];
+  ];*/
 
   constructor(private service: ProductService) { }
 
