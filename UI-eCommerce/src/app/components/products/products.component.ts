@@ -40,7 +40,17 @@ export class ProductsComponent implements OnInit {
         "Price" : 59, 
         "imageURL" : "https://images-na.ssl-images-amazon.com/images/I/41KbVOAvsBL.jpg",
         "Type" : "Digital"
-    }
+    },
+    { 
+      "Code" : "Macbook", 
+      "Name" : "Macbook Air", 
+      "Description" : "Processor: Intel Core i5 1,4GHz", 
+      "Category" : { "Name" : "Entertainment", "Description" : "Useful" },
+      "ShippingDeliveryType" : "None", 
+      "Price" : 500, 
+      "imageURL" : "https://http2.mlstatic.com/S_711702-MCO26579003759_122017-O.jpg",
+      "Type" : "Digital"
+  }
   ];
 
   constructor(private service: ProductService) { }
