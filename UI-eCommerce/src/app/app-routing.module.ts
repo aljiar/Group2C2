@@ -4,6 +4,7 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { ProductsComponent } from './components/products/products.component';
 import { ProductDescriptionComponent } from './components/product-description/product-description.component';
 import { HomeComponent } from './components/home/home.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { combineLatest } from 'rxjs';
 
 const routes: Routes = [
@@ -20,6 +21,10 @@ const routes: Routes = [
       {
         path: 'productDescription/:id',
         component: ProductDescriptionComponent
+      },
+      {
+        path: 'cart',
+        component: ShoppingCartComponent
       }
     ]
   }

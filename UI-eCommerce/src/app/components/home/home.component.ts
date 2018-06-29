@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     this.numberOfProducts = 0
     dataService.numberOfProducts$.subscribe(
       number => {
-        this.numberOfProducts++;
+        this.numberOfProducts += number;
     })
   }
 

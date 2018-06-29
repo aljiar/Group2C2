@@ -12,6 +12,8 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { ProductCartComponent } from './components/product-cart/product-cart.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     ProductsComponent,
     LoginPageComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    ShoppingCartComponent,
+    ProductCartComponent
   ],
   imports: [
     FormsModule,

@@ -7,7 +7,7 @@ export class DataService {
    
   numberOfProducts$ = this.numberOfProducts.asObservable();
 
-  updateData() {
-      this.numberOfProducts.next(1);
+  updateData(data: number) {
+      this.numberOfProducts.next(data);
   }
 }

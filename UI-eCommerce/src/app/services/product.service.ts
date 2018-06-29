@@ -3,7 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Product } from '../models/product'
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 
 export class ProductService
 {
