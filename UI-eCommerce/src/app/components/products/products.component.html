@@ -9,19 +9,24 @@
   </div>
 </div>
 
-
-<div class="container-fluid">
-  <ngb-carousel>
-      <ng-template ngbSlide *ngFor="let product of products">
-        <img class="featurette-image img-fluid mx-auto" src="{{product.imageURL}}" data-holder-rendered="true">
-        <div class="carousel-caption">
-          <h5>{{product.Description}}</h5>
-          <h4>Price: {{product.Price}}</h4>
-          <p>This carousel uses customized default values.</p>
+<div class="container bg-danger">
+    <div class="container-fluid display-1 text-white bg-dark">
+        <ngb-carousel>
+            <ng-template ngbSlide *ngFor="let product of products">
+              <img class="img-rounded featurette-image mx-auto" width="180" height="300" ng-style="position:center" src="{{product.imageURL}}" ng-style="position:absolute" data-holder-rendered="true">
+              <div class="carousel-caption">
+                <h5 style="color: rgb(245, 153, 67) !important">{{product.Description}}</h5>
+                <h4 style="color: rgb(245, 153, 67) !important">Price: {{product.Price}}</h4>
+                <a routerLink="../productDescription/{{product.Code}}" style="margin-top:0%" class="btn btn-outline-danger" >View More</a>
+              </div>
+            </ng-template>
+          </ngb-carousel>
         </div>
-      </ng-template>
-    </ngb-carousel>
-  </div>
+</div>
+
+
+
+
 
 <div class="px-2">
   <div class="container">

@@ -3,6 +3,7 @@ import { GlobalService } from "./globals.service";
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +31,8 @@ import { ProductCartComponent } from './components/product-cart/product-cart.com
     FormsModule,
     BrowserModule,
     AppRoutingModule,
+    NgbModule,
+    NgbModule.forRoot(),
     HttpClientModule,
     AngularFontAwesomeModule
   ],
