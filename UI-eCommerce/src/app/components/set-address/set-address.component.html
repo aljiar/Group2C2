@@ -1,32 +1,34 @@
 <div class="container">
-  <form #addressForm="ngForm">
+  <form [formGroup]="addressForm" (ngSubmit)="submitAddress()">
     <fieldset>
-      <legend>Add a new address</legend>
+      <legend *ngIf="!edit">Add a new address</legend>
+      <legend *ngIf="edit">Edit address</legend>
       <div class="form-group">
-        <label for="exampleInputEmail1">Address Identifier</label>
-        <input type=text class="form-control" id="userName" required>
+        <label for="userName">Address Identifier</label>
+        <input type=text class="form-control" id="userName" formControlName="identifier" required>
       </div>
       <div class="form-group">
-        <label for="exampleInputEmail1">Address Line 1:</label>
-        <input type="text" class="form-control" id="addressOne" required>
+        <label for="addressOne">Address Line 1:</label>
+        <input type="text" class="form-control" id="addressOne" formControlName="addressOne" required>
       </div>
       <div class="form-group">
-        <label for="exampleInputEmail1">Address Line 2:</label>
-        <input type="text" class="form-control" id="addressTwo" required>
+        <label for="addressTwo">Address Line 2:</label>
+        <input type="text" class="form-control" id="addressTwo" formControlName="addressTwo" required>
       </div>
       <div class="form-group">
-        <label for="exampleInputEmail1">City:</label>
-        <input type="text" class="form-control" id="city" required>
+        <label for="city">City:</label>
+        <input type="text" class="form-control" id="city" formControlName="city" required>
       </div>
       <div class="form-group">
-        <label for="exampleInputEmail1">Phone:</label>
-        <input type="number" class="form-control" id="phone" required>
-      </div><div class="form-group">
-        <label for="exampleInputEmail1">Zone:</label>
-        <input type="text" class="form-control" id="zone" required>
+        <label for="phone">Phone:</label>
+        <input type="number" class="form-control" id="phone" min="0" formControlName="phone" required>
+      </div>
+      <div class="form-group">
+        <label for="zone">Zone:</label>
+        <input type="text" class="form-control" id="zone" formControlName="zone" required>
       </div>
     </fieldset>
+    <button class="btn btn-primary" type="submit" [disabled]="addressForm.invalid">Save</button>
+    <button class="btn btn-primary" type="button" (click)="reset()">Cancel</button>
   </form>
-  <button class="btn btn-primary" type="submit" [disabled]="addressForm.invalid">Save</button>
-  <button class="btn btn-primary" type="button">Cancel</button>
 </div>

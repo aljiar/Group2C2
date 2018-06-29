@@ -1,5 +1,5 @@
 <div class="card-columns" *ngIf="user">
-  <app-shipping-address *ngFor="let address of user.ShippingAddressesList" [shippingAddress]="address"></app-shipping-address>
+  <app-shipping-address *ngFor="let address of user.ShippingAddressesList" [shippingAddress]="address" (editAddress)="editAddress($event)" (deleteAddress)="deleteAddress($event)" (deliverToAddress)="deliver($event)"></app-shipping-address>
 </div>
-<app-set-address></app-set-address>
+<app-set-address [edit]="edit" [oldShippingAddress]="oldShippingAddress" (cancel)="cancelEdition()" (address)="submitAddress($event)"></app-set-address>
   
