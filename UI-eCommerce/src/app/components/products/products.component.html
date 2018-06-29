@@ -9,6 +9,20 @@
   </div>
 </div>
 
+
+<div class="container-fluid">
+  <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let product of products">
+        <img class="featurette-image img-fluid mx-auto" src="{{product.imageURL}}" data-holder-rendered="true">
+        <div class="carousel-caption">
+          <h5>{{product.Description}}</h5>
+          <h4>Price: {{product.Price}}</h4>
+          <p>This carousel uses customized default values.</p>
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
+
 <div class="px-2">
   <div class="container">
     <div class="row">
