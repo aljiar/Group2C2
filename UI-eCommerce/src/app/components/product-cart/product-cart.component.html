@@ -20,7 +20,7 @@
         </div>
         <div class="row-3" *ngIf="inStore">
           <select (change)="onChangeStore($event.target.value)">
-            <option value="{{store.Name}}" *ngFor="let store of stores">{{store.Name}</option>
+            <option value="Store1">Your store</option>
           </select>
         </div>
       </div>

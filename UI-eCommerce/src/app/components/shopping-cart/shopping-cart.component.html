@@ -3,7 +3,7 @@
     <h1>Shopping cart</h1>
   </div>
   <div class="card mb-3" *ngFor="let productCart of cart.ListProductCart; let i = index">
-    <app-product-cart [username]="username" [productCart]="productCart" [index]="i" (productAdded)="productAdded($event)"></app-product-cart>
+    <app-product-cart [username]="username" [productCart]="productCart" [index]="i" (productAdded)="productAdded($event)" [stores]="stores"></app-product-cart>
   </div>
   <div class="row">
     <div class="col-6">

@@ -43,6 +43,7 @@ export class ProductCartComponent implements OnInit {
     this.inStore = false;
     if (newValue == "InStore") {
       this.inStore = true;
+      this.stores = [{ "Name": "Everything you need", "Line1": "Av. Store", "Line2": "Store Av", "Phone": 123456}]
     }
   }
 }

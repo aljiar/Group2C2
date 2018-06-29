@@ -34,7 +34,7 @@ export class ShoppingCartComponent implements OnInit {
       error => console.log(error)
     )
     this.storeService.getStores().subscribe(
-      data => this.stores = data,
+      data => this.stores = [{ "Name": "Everything you need", "Line1": "Av. Store", "Line2": "Store Av", "Phone": 123456}],
       err => console.log(err)
     )
   }
@@ -47,12 +47,16 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   next() {
-    this.cartService.updateCart(this.username, this.cart).subscribe(
-      data => {
-        console.log(data);
-        this.router.navigate(['home/address']);
-      },
-      err => console.log(err)
-    )
+    if (this.totalItems != 0)
+    {
+      this.cartService.updateCart(this.username, this.cart).subscribe(
+        data => {
+          console.log(data);
+          this.router.navigate(['home/address']);
+        },
+        err => console.log(err)
+      )
+    }
+    
   }
 } 
