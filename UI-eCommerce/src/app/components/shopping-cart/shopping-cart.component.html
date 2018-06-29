@@ -1,0 +1,19 @@
+<div class="container" *ngIf="cart">
+  <div class="row">
+    <h1>Shopping cart</h1>
+  </div>
+  <div class="card mb-3" *ngFor="let productCart of cart.ListProductCart; let i = index">
+    <app-product-cart [username]="username" [productCart]="productCart" [index]="i" (productAdded)="productAdded($event)"></app-product-cart>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="row">
+        Subtotal ({{totalItems}} items): ${{totalPrice}}
+      </div>
+    </div>
+    <div class="col-6">
+      <a class="btn btn-outline-primary text-primary" (click)="next()">OK</a>
+    </div>
+  </div>
+  
+</div>

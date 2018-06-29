@@ -11,12 +11,10 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor(private userService: UserService, private router:Router) { 
-
-  }
+  constructor(private userService: UserService, private router:Router) { }
 
   ngOnInit() {
-    if (localStorage.getItem('username')) {
+    if (this.userService.getCurrentUsername()) {
       this.router.navigate(['home/products'])
     }
   }
@@ -29,7 +27,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   login(username: string, data){
-    localStorage.setItem('username',username);
+    this.userService.setCurrentUsername(username);
     this.router.navigate(['home/products'])
   }
 }

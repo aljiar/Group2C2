@@ -26,12 +26,13 @@
 <div class="px-2">
   <div class="container">
     <div class="row">
-      <div class="col-md-3" *ngFor="let product of products">
-        <img class="center-block img-fluid d-block p-0" src="{{product.imageURL}}">
-        <p class="lead text-secondary" style="color: black !important">{{product.Description}}</p>
-        <h6 class="text-secondary" style="color: black !important">Price: {{product.Price}}</h6>
-      </div>
-
+        <div class="col-md-3" *ngFor="let product of products">
+            <a routerLink="../productDescription/{{product.Code}}">
+              <img class="center-block img-fluid d-block p-0" src="{{product.imageURL}}">
+              <p class="lead text-secondary" style="color: black !important">{{product.Description}}</p>
+              <h6 class="text-secondary" style="color: black !important">Price: {{product.Price}}</h6>
+            </a>
+        </div>
     </div>
   </div>
 </div>

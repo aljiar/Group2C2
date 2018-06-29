@@ -4,10 +4,11 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { ProductsComponent } from './components/products/products.component';
 import { ProductDescriptionComponent } from './components/product-description/product-description.component';
 import { HomeComponent } from './components/home/home.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { combineLatest } from 'rxjs';
 
 const routes: Routes = [
-  {path: '', component:LoginPageComponent},
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component:LoginPageComponent},
   {
     path: 'home', 
@@ -18,8 +19,12 @@ const routes: Routes = [
         component: ProductsComponent
       },
       {
-        path: 'productDescription',
+        path: 'productDescription/:id',
         component: ProductDescriptionComponent
+      },
+      {
+        path: 'cart',
+        component: ShoppingCartComponent
       }
     ]
   }
