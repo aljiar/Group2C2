@@ -43,7 +43,7 @@ export class ShoppingCartComponent implements OnInit {
     this.cartService.updateCart(this.username, this.cart).subscribe(
       data => {
         console.log(data);
-        this.router.navigate(['/address']);
+        this.router.navigate(['home/address']);
       },
       err => console.log(err)
     )

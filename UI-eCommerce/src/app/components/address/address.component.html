@@ -1,0 +1,5 @@
+<div class="card-columns" *ngIf="user">
+  <app-shipping-address *ngFor="let address of user.ShippingAddressesList" [shippingAddress]="address"></app-shipping-address>
+</div>
+<app-set-address></app-set-address>
+  
