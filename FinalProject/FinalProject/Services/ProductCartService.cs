@@ -7,31 +7,47 @@ using System.Threading.Tasks;
 
 namespace FinalProject
 {
-    class ProductCartManager : IService, ICRUD<ProductCart>
+    public class ProductCartService : IService, ICRUD<ProductCart>
     {
         private Cart cart;
 
-        public ProductCartManager(Cart cart)
+        public bool setCart(Cart cart)
         {
-            this.cart = cart;
+            CartService cartService = new CartService();
+            if (cartService.checkIfExists(cart.Username))
+            {
+                this.cart = cart;
+                return true;
+            }
+            return false;
         }
 
         public bool checkIfExists(string productCode)
         {
-            return cart.ListProductCart.Exists((x => x.ProductCode == productCode));
+            if (cart != null)
+            {
+                return cart.ListProductCart.Exists((x => x.ProductCode == productCode));
+            }
+            return false;
         }
 
         public int getIndexByKey(string productCode)
         {
-            return cart.ListProductCart.FindIndex((x => x.ProductCode == productCode));
+            if (cart != null)
+            {
+                return cart.ListProductCart.FindIndex((x => x.ProductCode == productCode));
+            }
+            return -1;
         }
 
         public bool Create(ProductCart prodCart)
         {
             ProductService prodManager = new ProductService();
+            CartService cartService = new CartService();
             if (!checkIfExists(prodCart.ProductCode) && prodManager.checkIfExists(prodCart.ProductCode))
             {
                 cart.ListProductCart.Add(prodCart);
+                cartService.Update(cart.Username, cart);
                 Console.WriteLine("Product cart was created successfully");
                 return true;
             }
@@ -41,10 +57,12 @@ namespace FinalProject
 
         public bool Delete(string key)
         {
+            CartService cartService = new CartService();
             int index = getIndexByKey(key);
             if (index != -1)
             {
                 cart.ListProductCart.RemoveAt(index);
+                cartService.Update(cart.Username, cart);
                 Console.WriteLine("Product cart was deleted successfully");
                 return true;
             }
@@ -54,10 +72,12 @@ namespace FinalProject
 
         public bool Update(string key, ProductCart updatedProductCart)
         {
+            CartService cartService = new CartService();
             int index = getIndexByKey(key);
             if (index != -1 && key == updatedProductCart.ProductCode) //key must be the product code
             {
                 cart.ListProductCart[index] = updatedProductCart;
+                cartService.Update(cart.Username, cart);
                 Console.WriteLine("Product cart was updated successfully");
                 return true;
             }

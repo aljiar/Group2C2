@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace FinalProject
 {
-    class ProductCart
+    public class ProductCart
     {
+        [JsonProperty(Required = Required.Always)]
         public string ProductCode { get; set; }
-        public ShippingDeliveryType SelectedDelivery { get; set; }
-        private Store Store { get; set; }
+        [JsonProperty(Required = Required.Always)]
+        public string SelectedDelivery { get; set; }
+        //[JsonProperty(Required = Required.Always)]
+        public Store Store { get; set; }
+        [JsonProperty(Required = Required.Always)]
         public int Quantity { get; set; }
 
-        public ProductCart(string productCode, ShippingDeliveryType selectedDelivery, Store store, int quantity)
+        public ProductCart(string productCode, string selectedDelivery, Store store, int quantity)
         {
             ProductCode = productCode;
             SelectedDelivery = selectedDelivery;
@@ -21,9 +26,9 @@ namespace FinalProject
             Quantity = quantity;
         }
 
-        private void assignStore(ShippingDeliveryType selectedDelivery, Store store)
+        private void assignStore(string selectedDelivery, Store store)
         {
-            if (selectedDelivery == ShippingDeliveryType.InStore)
+            if (selectedDelivery == "InStore")
             {
                 Store = store;
             }

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace FinalProject
 {
-    class Category
+    public class Category
     {
+        [JsonProperty(Required = Required.Always)]
         public string Name { get; set; }
+        [JsonProperty(Required = Required.Always)]
         public string Description { get; set; }
 
 

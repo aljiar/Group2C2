@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 
 namespace FinalProject
 {
-    class CartManager : IService, ICRUD<Cart>
+    public class CartService : IService, ICRUD<Cart>
     {
         private DB myDB;
 
-        public CartManager()
+        public CartService()
         {
             myDB = DB.Instance;
         }
 
         public bool checkIfExists(string username)
         {
-            return myDB.Carts.Exists((x => x.Username == username));
+            return myDB.Carts.Exists(x => (x.Username == username && !x.Dispatched));
         }
 
         public bool Create(Cart newCart)
         {
-            UserManager manager = new UserManager();
+            UserService manager = new UserService();
             if (!checkIfExists(newCart.Username) && manager.checkIfExists(newCart.Username))
             {
                 myDB.Carts.Add(newCart);
@@ -46,9 +46,14 @@ namespace FinalProject
             return false;
         }
 
+        public List<Cart> GetDispatchedCarts(string username)
+        {
+            return myDB.Carts.Where(x => (x.Username == username && x.Dispatched)).ToList();
+        }
+
         public int getIndexByKey(string key)
         {
-            return myDB.Carts.FindIndex(x => x.Username == key);
+            return myDB.Carts.FindIndex(x => x.Username == key && !x.Dispatched);
         }
 
         public List<Cart> Read()

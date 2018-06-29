@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace FinalProject
 {
-    class User
+    public class User
     {
+        [JsonProperty(Required = Required.Always)]
         public string Username { get; set; }
+        [JsonProperty(Required = Required.Always)]
         public string Password { get; set; }
+        [JsonProperty(Required = Required.Always)]
         public string Name { get; set; }
+        [JsonProperty(Required = Required.Always)]
         public string LastName { get; set; }
+        [JsonProperty(Required = Required.Always)]
         public List<ShippingAddress> ShippingAddressesList { get; set; }
 
         public User(string username, string password, string name, string lastname, List<ShippingAddress> shippingAddressesList)

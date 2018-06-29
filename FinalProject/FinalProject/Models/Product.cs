@@ -3,31 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace FinalProject
 {
-    public enum ShippingDeliveryType
+    public class Product
     {
-        Express,
-        Normal,
-        InStore,
-        Free,
-        None
-    };
-    public enum Type1
-    { 
-        Physical, 
-        Digital
-    };
-
-    class Product
-    {
+        [JsonProperty(Required = Required.Always)]
         public string Code { get; set; }
+        [JsonProperty(Required = Required.Always)]
         public string Name { get; set; }
+        [JsonProperty(Required = Required.Always)]
         public double Price { get; set; }
-        public string Description { get; set; }        
-        public Type1 Type { get; set; }
-        public ShippingDeliveryType ShippingDeliberyType { get; set; }
+        [JsonProperty(Required = Required.Always)]
+        public string Description { get; set; }
+        [JsonProperty(Required = Required.Always)]
+        public string Type { get; set; }
+        [JsonProperty(Required = Required.Always)]
+        public string ShippingDeliveryType { get; set; }
+        [JsonProperty(Required = Required.Always)]
+        public string imageURL { get; set; }
+        [JsonProperty(Required = Required.Always)]
         public Category Category { get; set; }
 
 
@@ -41,7 +37,7 @@ namespace FinalProject
             Console.WriteLine("PRICE: " + Price);
             Console.WriteLine("DESCRIPTION: " + Description);
             Console.WriteLine("TYPE: " + Type);
-            Console.WriteLine("SHIPPING DELIBERY TYPE: " + ShippingDeliberyType);
+            Console.WriteLine("SHIPPING DELIBERY TYPE: " + ShippingDeliveryType);
             Console.WriteLine("CATEGORY: " + Category);
         }
     }
