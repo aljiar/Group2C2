@@ -4,6 +4,8 @@ import { CartService } from '../../services/cart.service';
 import { UserService } from '../../services/user.service';
 import { Route, Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
+import { StoreService } from '../../services/store.service';
+import { Store } from '../../models/store';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -15,8 +17,9 @@ export class ShoppingCartComponent implements OnInit {
   totalItems: number
   totalPrice: number
   username: string
+  stores: Store[]
 
-  constructor(private userService: UserService, private cartService: CartService, private dataService: DataService, private router: Router) { 
+  constructor(private userService: UserService, private cartService: CartService, private storeService: StoreService, private dataService: DataService, private router: Router) { 
     this.totalItems = 0;
     this.totalPrice = 0;
   }
@@ -29,6 +32,10 @@ export class ShoppingCartComponent implements OnInit {
         this.dataService.updateData(-this.cart.ListProductCart.length);
       },
       error => console.log(error)
+    )
+    this.storeService.getStores().subscribe(
+      data => this.stores = data,
+      err => console.log(err)
     )
   }
 
