@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProductCart } from '../../models/product-cart';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product';
+import { Store } from '../../models/store';
 
 @Component({
   selector: 'app-product-cart',
@@ -13,9 +14,11 @@ export class ProductCartComponent implements OnInit {
   @Input() productCart: ProductCart
   @Input() username: string
   @Input() index: number
+  @Input() stores: Store[]
   @Output() productAdded: EventEmitter<[number, number, number]> = new EventEmitter()
   product: Product
   quantity: number
+  inStore: boolean
 
   constructor(private productService: ProductService) { }
 
@@ -34,5 +37,12 @@ export class ProductCartComponent implements OnInit {
     var value = parseInt(newValue) - this.quantity;
     this.quantity = parseInt(newValue);
     this.productAdded.emit([this.index, value, this.product.Price*value])
+  }
+
+  onChangeDeliveryType(newValue: string) {
+    this.inStore = false;
+    if (newValue == "InStore") {
+      this.inStore = true;
+    }
   }
 }

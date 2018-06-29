@@ -10,7 +10,18 @@
             <p>{{product.Description}}</p>
         </div>
         <div class="row-3">
-          Delivery Type
+          <select (change)="onChangeDeliveryType($event.target.value)">
+            <option value="Express">Express</option>
+            <option value="Normal">Normal</option>
+            <option value="InStore">InStore</option>
+            <option value="Free">Free</option>
+            <option value="None">None</option>
+          </select>
+        </div>
+        <div class="row-3" *ngIf="inStore">
+          <select (change)="onChangeStore($event.target.value)">
+            <option value="{{store.Name}}" *ngFor="let store of stores">{{store.Name}</option>
+          </select>
         </div>
       </div>
       <div class="col-2">
